@@ -74,18 +74,8 @@ button {
     inset 0 0 16px rgba(77, 252, 255, 0.06);
 }
 
-.map-area::before {
-  content: "検知 → 構造化 → 改善 → 共有 → 実装";
-  display: block;
-  margin: 0 0 18px;
-  color: #dffcff;
-  font-size: 14px;
-  font-weight: 900;
-  line-height: 1.6;
-  letter-spacing: 0.04em;
-  text-shadow: 0 0 10px rgba(77, 252, 255, 0.72);
-}
-
+/* SP版ではタイトル文を出さない */
+.map-area::before,
 .map-area::after {
   display: none;
 }
@@ -101,8 +91,8 @@ button {
 }
 
 .cluster.problem::before,
-.cluster.work::before,
 .cluster.tech::before,
+.cluster.work::before,
 .cluster.projects::before {
   display: block;
   margin: 0 0 9px;
@@ -113,16 +103,17 @@ button {
   text-shadow: 0 0 10px rgba(77, 252, 255, 0.6);
 }
 
+/* HTMLの上から順：problem → tech → work → projects */
 .cluster.problem::before {
   content: "01 / 問題検知・構造化";
 }
 
-.cluster.work::before {
-  content: "02 / 業務改善・運用設計";
+.cluster.tech::before {
+  content: "02 / 技術実装・制作支援";
 }
 
-.cluster.tech::before {
-  content: "03 / 技術実装・制作支援";
+.cluster.work::before {
+  content: "03 / 業務改善・運用設計";
 }
 
 .cluster.projects::before {

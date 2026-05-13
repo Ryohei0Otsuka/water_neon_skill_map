@@ -7,11 +7,12 @@ const containers = {
   projects: document.getElementById("project-items")
 };
 
+/* HTML表示順に合わせる：problem → tech → work → projects */
 const groupLabels = {
-  problem: "問題検知・構造化",
-  work: "業務改善・運用設計",
-  tech: "技術実装・制作支援",
-  projects: "制作物・GitHub"
+  problem: "01 / 問題検知・構造化",
+  tech: "02 / 技術実装・制作支援",
+  work: "03 / 業務改善・運用設計",
+  projects: "04 / 制作物・GitHub"
 };
 
 function createMobileModal() {
@@ -75,7 +76,6 @@ function createMobileModal() {
       modal.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-open");
 
-      const closeButton = modal.querySelector(".mobile-modal-close");
       closeButton.focus();
     }
   };
@@ -86,12 +86,6 @@ const mobileModal = createMobileModal();
 function createCard(item, groupName) {
   const card = document.createElement("div");
   card.className = groupName === "projects" ? "project-card" : "skill-card";
-
-  if (item.type !== "github") {
-    card.setAttribute("role", "button");
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("aria-label", `${item.name} の詳細を開く`);
-  }
 
   const icon = document.createElement("span");
   icon.className = "card-icon";
@@ -155,6 +149,10 @@ function createCard(item, groupName) {
 
     return card;
   }
+
+  card.setAttribute("role", "button");
+  card.setAttribute("tabindex", "0");
+  card.setAttribute("aria-label", `${item.name} の詳細を開く`);
 
   card.addEventListener("click", () => {
     mobileModal.open(item, groupName);
