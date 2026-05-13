@@ -1195,7 +1195,7 @@ svg.lines {
    TABLET / SMALL DESKTOP
 ========================= */
 
-@media (max-width: 1280px) {
+@media (max-width: 1280px) and (min-width: 768px) {
   .stage {
     min-width: 1080px;
   }
@@ -1230,8 +1230,8 @@ svg.lines {
 }
 
 /* =========================
-   MOBILE: PC VIEW + HORIZONTAL SCROLL
-   スマホではPC版を縮めず、横スクロールで見せる
+   MOBILE: VERTICAL LP VIEW
+   スマホではPC版UIを縦スクロールLPとして見せる
 ========================= */
 
 @media (max-width: 767px) {
@@ -1239,49 +1239,300 @@ svg.lines {
   body {
     width: 100%;
     min-height: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
   }
 
   body {
-    min-width: 1180px;
-    min-height: 720px;
+    min-width: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(77, 252, 255, 0.18), transparent 32%),
+      radial-gradient(circle at 80% 18%, rgba(178, 108, 255, 0.14), transparent 30%),
+      linear-gradient(180deg, #020713 0%, #03172d 52%, #020713 100%);
   }
 
   .stage {
-    width: 1180px;
-    height: 720px;
-    min-width: 1180px;
-    min-height: 720px;
-    padding: 24px 28px;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 100vh;
+    padding: 14px;
+    overflow: visible;
+  }
+
+  .stage::before {
+    opacity: 0.34;
+    background-size: 72px 72px, 110px 110px, 44px 44px;
+  }
+
+  .stage::after,
+  .ambient,
+  .water-top,
+  .water-bottom,
+  .top-mark,
+  .lines,
+  .globe-wrap,
+  .philosophy-row,
+  .detail-pop,
+  #water-canvas {
+    display: none;
   }
 
   .layout {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 20px;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: auto;
   }
 
   .map-area {
-    height: 100%;
+    order: 1;
+    height: auto;
     min-height: 0;
-    overflow: hidden;
+    overflow: visible;
+    padding: 18px 14px 16px;
+    border: 1px solid rgba(113, 246, 255, 0.38);
+    border-radius: 22px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(77, 252, 255, 0.14), transparent 34%),
+      linear-gradient(180deg, rgba(4, 28, 48, 0.74), rgba(2, 10, 24, 0.82));
+    box-shadow:
+      0 0 18px rgba(77, 252, 255, 0.36),
+      inset 0 0 22px rgba(77, 252, 255, 0.08);
   }
 
-  .side-panel {
-    width: auto;
-    min-width: 0;
+  .map-area::before {
+    content: "Water Neon Skill Map 2026";
+    position: relative;
+    inset: auto;
+    display: block;
+    z-index: 2;
+    margin: 0 0 6px;
+    color: var(--cyan);
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-shadow:
+      0 0 10px rgba(77, 252, 255, 0.9),
+      0 0 24px rgba(77, 252, 255, 0.42);
+    background: none;
+    animation: none;
+    mix-blend-mode: normal;
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .map-area::after {
+    content: "検知 → 構造化 → 改善 → 共有 → 実装";
+    display: block;
+    position: relative;
+    inset: auto;
+    z-index: 2;
+    height: auto;
+    margin: 0 0 18px;
+    color: #dffcff;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+    opacity: 0.92;
+    background: none;
+    transform: none;
+    filter: none;
+    animation: none;
+    pointer-events: none;
+  }
+
+  .cluster {
+    position: static;
+    z-index: 2;
+    display: block;
+    margin: 0 0 18px;
+    transform: none;
+  }
+
+  .cluster:last-of-type {
+    margin-bottom: 0;
   }
 
   .cluster.problem,
   .cluster.tech,
   .cluster.work,
   .cluster.projects {
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    grid-template-columns: none;
+    align-items: stretch;
     transform: none;
   }
 
-  .philosophy-row {
-    transform: translateX(-50%);
+  .cluster.problem::before,
+  .cluster.work::before,
+  .cluster.tech::before,
+  .cluster.projects::before {
+    display: block;
+    margin: 0 0 9px;
+    color: var(--cyan);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 10px rgba(77, 252, 255, 0.72);
+  }
+
+  .cluster.problem::before {
+    content: "01 / 問題検知・構造化";
+  }
+
+  .cluster.work::before {
+    content: "02 / 業務改善・運用設計";
+  }
+
+  .cluster.tech::before {
+    content: "03 / 技術実装・制作支援";
+  }
+
+  .cluster.projects::before {
+    content: "04 / 制作物・GitHub";
+    color: #e7d2ff;
+    text-shadow: 0 0 10px rgba(178, 108, 255, 0.78);
+  }
+
+  .hub {
+    display: none;
+  }
+
+  .items {
+    display: grid;
+    gap: 9px;
+    overflow: visible;
+  }
+
+  .skill-card,
+  .project-card {
+    width: 100%;
+    min-height: 52px;
+    grid-template-columns: 38px 1fr auto;
+    gap: 8px;
+    padding: 8px 11px 8px 8px;
+    border-radius: 18px;
+    font-size: 13px;
+    line-height: 1.25;
+    transform: none;
+  }
+
+  .skill-card:hover,
+  .project-card:hover,
+  .skill-card.active,
+  .project-card.active {
+    transform: none;
+  }
+
+  .skill-card::after,
+  .project-card::after {
+    display: none;
+  }
+
+  .card-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .card-name {
+    font-size: 13px;
+  }
+
+  .badge {
+    padding: 3px 7px;
+    font-size: 10px;
+  }
+
+  .score {
+    font-size: 18px;
+  }
+
+  .github-card {
+    display: grid;
+    z-index: 10;
+  }
+
+  .github-card:hover,
+  .github-card:focus-within {
+    z-index: 10;
+  }
+
+  .github-flyout {
+    position: static;
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 16px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .github-flyout::before {
+    display: none;
+  }
+
+  .github-flyout-title {
+    margin: 0 0 9px;
+    font-size: 12px;
+  }
+
+  .github-list {
+    gap: 7px;
+  }
+
+  .github-list a {
+    min-height: 34px;
+    grid-template-columns: 18px 1fr auto;
+    padding: 7px 9px;
+    font-size: 12px;
+    white-space: normal;
+  }
+
+  .side-panel {
+    order: 2;
+    width: 100%;
+    padding: 16px 14px;
+    border-radius: 22px;
+  }
+
+  .panel-section {
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+  }
+
+  .panel-title {
+    margin-bottom: 10px;
+    font-size: 19px;
+  }
+
+  .panel-title span {
+    width: 32px;
+    height: 32px;
+  }
+
+  .side-panel ul {
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .side-panel li {
+    padding-left: 18px;
+  }
+
+  .side-panel li::before {
+    font-size: 11px;
   }
 }
