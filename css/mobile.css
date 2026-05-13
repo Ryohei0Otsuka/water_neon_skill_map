@@ -29,6 +29,10 @@ body {
   min-height: 100vh;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 button {
   font: inherit;
 }
@@ -70,7 +74,6 @@ button {
     inset 0 0 16px rgba(77, 252, 255, 0.06);
 }
 
-/* SP版では英字タイトルを出さず、思想だけ出す */
 .map-area::before {
   content: "検知 → 構造化 → 改善 → 共有 → 実装";
   display: block;
@@ -157,7 +160,15 @@ button {
   box-shadow:
     0 0 10px rgba(77, 252, 255, 0.16),
     inset 0 0 12px rgba(77, 252, 255, 0.08);
-  cursor: default;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.skill-card:active,
+.project-card:active {
+  transform: scale(0.985);
+  background:
+    linear-gradient(90deg, rgba(9, 64, 86, 0.86), rgba(1, 22, 42, 0.82));
 }
 
 .project-card {
@@ -219,6 +230,11 @@ button {
 /* GitHubカードはSPでは常時展開 */
 .github-card {
   display: grid;
+  cursor: default;
+}
+
+.github-card:active {
+  transform: none;
 }
 
 .github-flyout {
@@ -359,4 +375,114 @@ button {
 .side-panel strong {
   color: #dffcff;
   font-weight: 900;
+}
+
+/* =========================
+   SP MODAL
+========================= */
+
+.mobile-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 6, 16, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.mobile-modal.visible {
+  display: flex;
+}
+
+.mobile-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding: 18px 16px 16px;
+  border: 1px solid rgba(113, 246, 255, 0.54);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(77, 252, 255, 0.16), transparent 32%),
+    radial-gradient(circle at 88% 8%, rgba(178, 108, 255, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(4, 28, 48, 0.98), rgba(2, 10, 24, 0.98));
+  box-shadow:
+    0 0 20px rgba(77, 252, 255, 0.28),
+    0 0 36px rgba(178, 108, 255, 0.14),
+    inset 0 0 16px rgba(77, 252, 255, 0.08);
+  animation: modalUp 0.18s ease-out;
+}
+
+@keyframes modalUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mobile-modal-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  padding: 4px 9px;
+  border: 1px solid rgba(113, 246, 255, 0.4);
+  border-radius: 999px;
+  color: #dffcff;
+  background: rgba(77, 252, 255, 0.08);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.mobile-modal-title {
+  margin: 0 36px 8px 0;
+  color: var(--cyan);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.35;
+  text-shadow: 0 0 10px rgba(77, 252, 255, 0.72);
+}
+
+.mobile-modal-score {
+  margin: 0 0 12px;
+  color: #dffcff;
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 0.9;
+}
+
+.mobile-modal-text {
+  margin: 0;
+  color: #d8fbff;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.mobile-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(113, 246, 255, 0.42);
+  border-radius: 50%;
+  color: #eaffff;
+  background: rgba(4, 20, 34, 0.78);
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.mobile-modal-close:active {
+  transform: scale(0.94);
 }
