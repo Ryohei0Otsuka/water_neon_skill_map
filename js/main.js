@@ -1,4 +1,4 @@
-import * as THREE from "https://unpkg.com/three@0.164.1/build/three.module.js";
+let THREE = null;
 
 const groups = {
   problem: [
@@ -1057,6 +1057,12 @@ function animateWater(time = 0) {
    THREE GLOBE
 ========================= */
 
+async function loadThreeIfNeeded() {
+  if (THREE) return;
+
+  THREE = await import("https://unpkg.com/three@0.164.1/build/three.module.js");
+}
+
 function createGlowSpriteTexture() {
   const size = 128;
   const spriteCanvas = document.createElement("canvas");
@@ -1176,7 +1182,7 @@ function createRing(radius, tube, color, opacity) {
 }
 
 function initThreeGlobe() {
-  if (!globeSceneEl) return;
+  if (!globeSceneEl || !THREE) return;
 
   const rect = globeSceneEl.getBoundingClientRect();
 
@@ -1365,7 +1371,9 @@ function initMobileView() {
   }
 }
 
-function initDesktopView() {
+async function initDesktopView() {
+  await loadThreeIfNeeded();
+
   renderSkillCards();
   initPointer();
 
