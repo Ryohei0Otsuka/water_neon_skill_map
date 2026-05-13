@@ -70,28 +70,21 @@ button {
     inset 0 0 16px rgba(77, 252, 255, 0.06);
 }
 
+/* SP版では英字タイトルを出さず、思想だけ出す */
 .map-area::before {
-  content: "Water Neon Skill Map 2026";
-  display: block;
-  margin: 0 0 6px;
-  color: var(--cyan);
-  font-size: 24px;
-  font-weight: 900;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  text-shadow: 0 0 10px rgba(77, 252, 255, 0.72);
-}
-
-.map-area::after {
   content: "検知 → 構造化 → 改善 → 共有 → 実装";
   display: block;
   margin: 0 0 18px;
   color: #dffcff;
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 900;
   line-height: 1.6;
   letter-spacing: 0.04em;
-  opacity: 0.92;
+  text-shadow: 0 0 10px rgba(77, 252, 255, 0.72);
+}
+
+.map-area::after {
+  display: none;
 }
 
 .cluster {
@@ -223,6 +216,7 @@ button {
   font-weight: 900;
 }
 
+/* GitHubカードはSPでは常時展開 */
 .github-card {
   display: grid;
 }
@@ -261,16 +255,22 @@ button {
   grid-template-columns: 18px 1fr auto;
   gap: 8px;
   align-items: center;
-  min-height: 34px;
-  padding: 7px 9px;
-  border: 1px solid rgba(178, 108, 255, 0.28);
+  min-height: 36px;
+  padding: 8px 10px;
+  border: 1px solid rgba(178, 108, 255, 0.34);
   border-radius: 999px;
   color: #f1e7ff;
-  background: rgba(7, 17, 38, 0.62);
+  background: rgba(7, 17, 38, 0.7);
   font-size: 12px;
   font-weight: 700;
   white-space: normal;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.github-list a:active {
+  transform: scale(0.98);
+  background: rgba(35, 18, 70, 0.86);
 }
 
 .github-list a span:first-child {
