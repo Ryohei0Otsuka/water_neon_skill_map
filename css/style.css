@@ -1192,7 +1192,7 @@ svg.lines {
 }
 
 /* =========================
-   RESPONSIVE-ish
+   TABLET / SMALL DESKTOP
 ========================= */
 
 @media (max-width: 1280px) {
@@ -1228,120 +1228,60 @@ svg.lines {
     transform: translateX(-50%) scale(0.9);
   }
 }
+
 /* =========================
-   MOBILE FALLBACK
+   MOBILE: PC VIEW + HORIZONTAL SCROLL
+   スマホではPC版を縮めず、横スクロールで見せる
 ========================= */
 
 @media (max-width: 767px) {
   html,
   body {
-    overflow-x: hidden;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: auto;
     overflow-y: auto;
   }
 
   body {
-    min-height: 100vh;
+    min-width: 1180px;
+    min-height: 720px;
   }
 
   .stage {
-    width: 100%;
-    min-width: 0;
-    min-height: 0;
-    height: auto;
-    padding: 14px;
+    width: 1180px;
+    height: 720px;
+    min-width: 1180px;
+    min-height: 720px;
+    padding: 24px 28px;
   }
 
   .layout {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+    height: 100%;
   }
 
   .map-area {
-    order: 1;
-    height: 680px;
-    min-height: 680px;
-    border-radius: 22px;
+    height: 100%;
+    min-height: 0;
     overflow: hidden;
   }
 
   .side-panel {
-    order: 2;
-    width: 100%;
-    padding: 18px;
-    border-radius: 20px;
+    width: auto;
+    min-width: 0;
   }
 
-  .panel-title {
-    font-size: 20px;
-  }
-
-  .side-panel ul {
-    font-size: 13px;
-  }
-
-  .globe-wrap {
-    width: 430px;
-    height: 430px;
-    min-width: 430px;
-    min-height: 430px;
-    top: 38%;
-  }
-
-  .core-label {
-    width: 260px;
-    min-height: 72px;
-    padding: 12px 14px;
-    font-size: 18px;
-    border-radius: 18px;
-  }
-
-  .cluster {
-    transform: scale(0.72);
-  }
-
-  .cluster.problem {
-    left: -42px;
-    top: 8%;
-    transform-origin: left top;
-  }
-
-  .cluster.work {
-    right: -42px;
-    top: 8%;
-    transform-origin: right top;
-  }
-
-  .cluster.tech {
-    left: -48px;
-    bottom: 18%;
-    transform-origin: left bottom;
-  }
-
+  .cluster.problem,
+  .cluster.tech,
+  .cluster.work,
   .cluster.projects {
-    right: -48px;
-    bottom: 18%;
-    transform-origin: right bottom;
+    transform: none;
   }
 
   .philosophy-row {
-    bottom: 16px;
-    gap: 8px;
-    transform: translateX(-50%) scale(0.72);
-  }
-
-  .detail-pop {
-    left: 50%;
-    top: auto;
-    bottom: 92px;
-    width: calc(100% - 28px);
-    min-height: 80px;
-    padding: 12px 14px;
-  }
-
-  .github-flyout {
-    right: 0;
-    width: 280px;
+    transform: translateX(-50%);
   }
 }
