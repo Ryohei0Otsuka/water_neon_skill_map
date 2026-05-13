@@ -187,7 +187,7 @@ const globeWrap = document.querySelector(".globe-wrap");
 const globeSceneEl = document.getElementById("globe-scene");
 
 const canvas = document.getElementById("water-canvas");
-const ctx = canvas.getContext("2d");
+const ctx = canvas ? canvas.getContext("2d") : null;
 
 const pointer = {
   x: 0,
@@ -212,6 +212,24 @@ let lastPointerRipple = 0;
 let lastSplashEmit = 0;
 let lastAutoRipple = 0;
 let lastCrownEmit = 0;
+
+let renderer;
+let scene;
+let camera;
+let globeGroup;
+let earthMesh;
+let wireMesh;
+let atmosphereMesh;
+let liquidShell;
+let particleSystem;
+let ringA;
+let ringB;
+let ringC;
+let ringD;
+
+function isMobileView() {
+  return window.matchMedia("(max-width: 767px)").matches;
+}
 
 /* =========================
    DOM CARDS
@@ -297,7 +315,9 @@ function createCard(item, groupName) {
 
     card.classList.add("active");
 
-    if (item.type === "github") {
+    if (!detailPop || !detailTitle || !detailText) return;
+
+    if (item.type === "github" || isMobileView()) {
       detailPop.classList.remove("visible");
       return;
     }
@@ -332,6 +352,8 @@ function activateInitialNode() {
 ========================= */
 
 function initPointer() {
+  if (!mapArea || !globeWrap) return;
+
   mapArea.addEventListener("mousemove", (event) => {
     const rect = mapArea.getBoundingClientRect();
 
@@ -611,6 +633,8 @@ class MistParticle {
 ========================= */
 
 function resizeCanvas() {
+  if (!canvas || !ctx || !mapArea) return;
+
   const rect = mapArea.getBoundingClientRect();
 
   dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -948,6 +972,8 @@ function drawBaseGlow(context, time) {
 }
 
 function animateWater(time = 0) {
+  if (isMobileView() || !ctx) return;
+
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   drawBackdropGlow(ctx, time);
@@ -1030,20 +1056,6 @@ function animateWater(time = 0) {
 /* =========================
    THREE GLOBE
 ========================= */
-
-let renderer;
-let scene;
-let camera;
-let globeGroup;
-let earthMesh;
-let wireMesh;
-let atmosphereMesh;
-let liquidShell;
-let particleSystem;
-let ringA;
-let ringB;
-let ringC;
-let ringD;
 
 function createGlowSpriteTexture() {
   const size = 128;
@@ -1164,6 +1176,8 @@ function createRing(radius, tube, color, opacity) {
 }
 
 function initThreeGlobe() {
+  if (!globeSceneEl) return;
+
   const rect = globeSceneEl.getBoundingClientRect();
 
   scene = new THREE.Scene();
@@ -1295,7 +1309,7 @@ function initThreeGlobe() {
 }
 
 function resizeThreeGlobe() {
-  if (!renderer || !camera) return;
+  if (!renderer || !camera || !globeSceneEl) return;
 
   const rect = globeSceneEl.getBoundingClientRect();
 
@@ -1307,7 +1321,7 @@ function resizeThreeGlobe() {
 }
 
 function animateThreeGlobe(time = 0) {
-  if (!renderer) return;
+  if (isMobileView() || !renderer) return;
 
   const t = time * 0.001;
 
@@ -1343,13 +1357,15 @@ function animateThreeGlobe(time = 0) {
    INIT
 ========================= */
 
-function handleResize() {
-  resizeCanvas();
-  buildWaterScene();
-  resizeThreeGlobe();
+function initMobileView() {
+  renderSkillCards();
+
+  if (detailPop) {
+    detailPop.classList.remove("visible");
+  }
 }
 
-function init() {
+function initDesktopView() {
   renderSkillCards();
   initPointer();
 
@@ -1363,6 +1379,23 @@ function init() {
 
   requestAnimationFrame(animateWater);
   requestAnimationFrame(animateThreeGlobe);
+}
+
+function handleResize() {
+  if (isMobileView()) return;
+
+  resizeCanvas();
+  buildWaterScene();
+  resizeThreeGlobe();
+}
+
+function init() {
+  if (isMobileView()) {
+    initMobileView();
+    return;
+  }
+
+  initDesktopView();
 }
 
 window.addEventListener("resize", handleResize);
