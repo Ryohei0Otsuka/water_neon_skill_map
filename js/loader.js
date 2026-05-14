@@ -1,12 +1,7 @@
 const mobileQuery = window.matchMedia("(max-width: 900px)");
-const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
-
-function shouldLoadMobile() {
-  return mobileQuery.matches || coarsePointerQuery.matches;
-}
 
 async function loadApp() {
-  if (shouldLoadMobile()) {
+  if (mobileQuery.matches) {
     await import("./mobile.js");
     return;
   }
@@ -15,10 +10,6 @@ async function loadApp() {
 }
 
 mobileQuery.addEventListener("change", () => {
-  window.location.reload();
-});
-
-coarsePointerQuery.addEventListener("change", () => {
   window.location.reload();
 });
 
