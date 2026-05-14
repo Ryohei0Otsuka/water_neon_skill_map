@@ -47,6 +47,10 @@ function createGithubFlyout(item) {
     link.target = "_blank";
     link.rel = "noopener noreferrer";
 
+    link.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
     const icon = document.createElement("span");
     icon.className = "work-icon";
     icon.textContent = work.icon;
@@ -73,9 +77,10 @@ function createGithubFlyout(item) {
 }
 
 function createCard(item, groupName) {
-  const card = document.createElement("button");
-  card.type = "button";
+  const card = document.createElement("div");
   card.className = groupName === "projects" ? "project-card" : "skill-card";
+  card.setAttribute("role", "button");
+  card.setAttribute("tabindex", "0");
 
   if (item.type === "github") {
     card.classList.add("github-card");
@@ -104,14 +109,16 @@ function createCard(item, groupName) {
     card.appendChild(createGithubFlyout(item));
   }
 
-  card.addEventListener("click", (event) => {
+  function activateCard(event) {
     event.stopPropagation();
 
     const isAlreadyActive = card.classList.contains("active");
 
     closeCards();
 
-    if (isAlreadyActive) return;
+    if (isAlreadyActive) {
+      return;
+    }
 
     card.classList.add("active");
 
@@ -123,6 +130,14 @@ function createCard(item, groupName) {
     detailTitle.textContent = `${item.name} / ${item.score}`;
     detailText.textContent = item.detail;
     detailPop.classList.add("visible");
+  }
+
+  card.addEventListener("click", activateCard);
+
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      activateCard(event);
+    }
   });
 
   return card;
@@ -141,6 +156,12 @@ function initMobile() {
 
   document.addEventListener("click", () => {
     closeCards();
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeCards();
+    }
   });
 }
 

@@ -80,6 +80,9 @@ function createGithubFlyout(item) {
     link.href = work.url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
+    link.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
 
     const icon = document.createElement("span");
     icon.className = "work-icon";
@@ -107,9 +110,10 @@ function createGithubFlyout(item) {
 }
 
 function createCard(item, groupName) {
-  const card = document.createElement("button");
-  card.type = "button";
+  const card = document.createElement("div");
   card.className = groupName === "projects" ? "project-card" : "skill-card";
+  card.setAttribute("role", "button");
+  card.setAttribute("tabindex", "0");
 
   if (item.type === "github") {
     card.classList.add("github-card");
@@ -138,14 +142,16 @@ function createCard(item, groupName) {
     card.appendChild(createGithubFlyout(item));
   }
 
-  card.addEventListener("click", (event) => {
+  function activateCard(event) {
     event.stopPropagation();
 
     const isAlreadyActive = card.classList.contains("active");
 
     closeCards();
 
-    if (isAlreadyActive) return;
+    if (isAlreadyActive) {
+      return;
+    }
 
     card.classList.add("active");
 
@@ -157,6 +163,14 @@ function createCard(item, groupName) {
     detailTitle.textContent = `${item.name} / ${item.score}`;
     detailText.textContent = item.detail;
     detailPop.classList.add("visible");
+  }
+
+  card.addEventListener("click", activateCard);
+
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      activateCard(event);
+    }
   });
 
   return card;
@@ -170,17 +184,12 @@ function renderCards() {
   });
 }
 
-function activateInitialNode() {
-  const first = document.querySelector(".skill-card");
-  if (first) first.click();
-}
-
 /* =========================
    POINTER
 ========================= */
 
 function initPointer() {
-  mapArea.addEventListener("mousemove", (event) => {
+  mapArea.addEventListener("pointermove", (event) => {
     const rect = mapArea.getBoundingClientRect();
 
     pointer.x = event.clientX - rect.left;
@@ -193,7 +202,7 @@ function initPointer() {
       `translate(-50%, -48%) rotateY(${pointer.nx * 7}deg) rotateX(${-pointer.ny * 6}deg)`;
   });
 
-  mapArea.addEventListener("mouseleave", () => {
+  mapArea.addEventListener("pointerleave", () => {
     pointer.active = false;
     pointer.nx = 0;
     pointer.ny = 0;
@@ -203,6 +212,12 @@ function initPointer() {
 
   mapArea.addEventListener("click", () => {
     closeCards();
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeCards();
+    }
   });
 }
 
@@ -329,8 +344,8 @@ class Ripple {
     context.scale(1, this.scaleY);
     context.strokeStyle = `rgba(77, 252, 255, ${this.alpha})`;
     context.lineWidth = this.lineWidth;
-    context.shadowBlur = 14;
-    context.shadowColor = "rgba(77, 252, 255, 0.82)";
+    context.shadowBlur = 18;
+    context.shadowColor = "rgba(77, 252, 255, 0.95)";
     context.beginPath();
     context.arc(0, 0, this.radius, 0, Math.PI * 2);
     context.stroke();
@@ -771,9 +786,9 @@ function animateWater(time = 0) {
     lastAutoRipple = time;
   }
 
-  if (pointer.active && time - lastPointerRipple > 70) {
-    spawnRipple(pointer.x, pointer.y, 5, 0.32);
-    spawnRipple(pointer.x, pointer.y, 14, 0.12);
+  if (pointer.active && time - lastPointerRipple > 58) {
+    spawnRipple(pointer.x, pointer.y, 4, 0.42);
+    spawnRipple(pointer.x, pointer.y, 15, 0.18);
     lastPointerRipple = time;
   }
 
@@ -1127,8 +1142,6 @@ function init() {
 
   initThreeGlobe();
   resizeThreeGlobe();
-
-  activateInitialNode();
 
   requestAnimationFrame(animateWater);
   requestAnimationFrame(animateThreeGlobe);
