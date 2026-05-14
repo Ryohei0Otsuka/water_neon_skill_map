@@ -599,14 +599,14 @@ svg.lines {
 
 .cluster.problem {
   left: 24px;
-  top: 12%;
+  top: 8%;
   grid-template-columns: 260px 150px;
   align-items: center;
 }
 
 .cluster.tech {
   left: 24px;
-  bottom: 10%;
+  bottom: 3%;
   grid-template-columns: 270px 150px;
   align-items: center;
 }
@@ -1271,7 +1271,7 @@ svg.lines {
 
   .cluster.problem,
   .cluster.tech {
-    left: 22px;
+    left: 24px;
   }
 
   .cluster.work,
@@ -1280,12 +1280,14 @@ svg.lines {
   }
 
   .cluster.problem {
-    transform: scale(0.9);
+    top: 7%;
+    transform: scale(0.86);
     transform-origin: left top;
   }
 
   .cluster.tech {
-    transform: scale(0.9);
+    bottom: 2%;
+    transform: scale(0.82);
     transform-origin: left bottom;
   }
 
@@ -1306,17 +1308,20 @@ svg.lines {
 }
 
 @media (max-height: 740px) {
-  .cluster.problem,
+  .cluster.problem {
+    top: 5%;
+  }
+
+  .cluster.tech {
+    bottom: 1%;
+  }
+
   .cluster.work {
     top: 7%;
   }
 
-  .cluster.tech {
-    bottom: 7%;
-  }
-
   .cluster.projects {
-    bottom: 8%;
+    bottom: 7%;
   }
 
   .skill-card,
@@ -1374,8 +1379,16 @@ svg.lines {
     right: 22px;
   }
 
-  .cluster.problem,
-  .cluster.tech,
+  .cluster.problem {
+    transform: scale(0.78);
+    transform-origin: left top;
+  }
+
+  .cluster.tech {
+    transform: scale(0.76);
+    transform-origin: left bottom;
+  }
+
   .cluster.work,
   .cluster.projects {
     transform: scale(0.82);
