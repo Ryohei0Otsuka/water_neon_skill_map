@@ -119,9 +119,7 @@ function createCard(item, groupName) {
 
     closeCards();
 
-    if (isAlreadyActive) {
-      return;
-    }
+    if (isAlreadyActive) return;
 
     card.classList.add("active");
   }
@@ -156,9 +154,7 @@ function initMobile() {
   });
 
   window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeCards();
-    }
+    if (event.key === "Escape") closeCards();
   });
 }
 

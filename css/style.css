@@ -625,6 +625,33 @@ svg.lines {
   align-items: center;
 }
 
+/* PC版ではHTML順に関係なく、左側は cards → hub、右側は hub → cards に固定 */
+@media (min-width: 901px) {
+  .cluster.problem .items,
+  .cluster.tech .items {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .cluster.problem .hub,
+  .cluster.tech .hub {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .cluster.work .hub,
+  .cluster.projects .hub {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .cluster.work .items,
+  .cluster.projects .items {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
 .hub {
   position: relative;
   width: 150px;
