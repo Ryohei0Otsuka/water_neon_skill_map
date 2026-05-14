@@ -113,12 +113,9 @@ function createCard(item, groupName) {
     event.stopPropagation();
 
     const isAlreadyActive = card.classList.contains("active");
-
     closeCards();
 
-    if (isAlreadyActive) {
-      return;
-    }
+    if (isAlreadyActive) return;
 
     card.classList.add("active");
 

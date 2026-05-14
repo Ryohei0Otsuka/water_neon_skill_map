@@ -29,7 +29,7 @@ const pointer = {
 
 let canvasWidth = 0;
 let canvasHeight = 0;
-let dpr = Math.min(window.devicePixelRatio || 1, 2);
+let dpr = Math.min(window.devicePixelRatio || 1, 1.6);
 
 const bubbles = [];
 const orbitDrops = [];
@@ -80,6 +80,7 @@ function createGithubFlyout(item) {
     link.href = work.url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
+
     link.addEventListener("click", (event) => {
       event.stopPropagation();
     });
@@ -146,12 +147,9 @@ function createCard(item, groupName) {
     event.stopPropagation();
 
     const isAlreadyActive = card.classList.contains("active");
-
     closeCards();
 
-    if (isAlreadyActive) {
-      return;
-    }
+    if (isAlreadyActive) return;
 
     card.classList.add("active");
 
@@ -199,7 +197,7 @@ function initPointer() {
     pointer.active = true;
 
     globeWrap.style.transform =
-      `translate(-50%, -48%) rotateY(${pointer.nx * 7}deg) rotateX(${-pointer.ny * 6}deg)`;
+      `translate(-50%, -48%) rotateY(${pointer.nx * 6}deg) rotateX(${-pointer.ny * 5}deg)`;
   });
 
   mapArea.addEventListener("pointerleave", () => {
@@ -215,9 +213,7 @@ function initPointer() {
   });
 
   window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeCards();
-    }
+    if (event.key === "Escape") closeCards();
   });
 }
 
@@ -236,18 +232,18 @@ class BubbleParticle {
       ? Math.random() * canvasHeight
       : canvasHeight + Math.random() * 120;
 
-    this.radius = 1 + Math.random() * 4.8;
-    this.speedY = 0.34 + Math.random() * 1.25;
-    this.speedX = -0.28 + Math.random() * 0.56;
-    this.alpha = 0.16 + Math.random() * 0.48;
+    this.radius = 1 + Math.random() * 3.6;
+    this.speedY = 0.25 + Math.random() * 0.95;
+    this.speedX = -0.2 + Math.random() * 0.4;
+    this.alpha = 0.14 + Math.random() * 0.36;
     this.phase = Math.random() * Math.PI * 2;
-    this.phaseSpeed = 0.01 + Math.random() * 0.03;
-    this.glow = 6 + Math.random() * 20;
+    this.phaseSpeed = 0.008 + Math.random() * 0.022;
+    this.glow = 5 + Math.random() * 12;
   }
 
   update() {
     this.phase += this.phaseSpeed;
-    this.x += this.speedX + Math.sin(this.phase) * 0.24;
+    this.x += this.speedX + Math.sin(this.phase) * 0.18;
     this.y -= this.speedY;
 
     if (this.y < -44 || this.x < -44 || this.x > canvasWidth + 44) {
@@ -266,15 +262,15 @@ class BubbleParticle {
     );
 
     gradient.addColorStop(0, `rgba(255, 255, 255, ${this.alpha})`);
-    gradient.addColorStop(0.35, `rgba(77, 252, 255, ${this.alpha * 0.5})`);
+    gradient.addColorStop(0.38, `rgba(77, 252, 255, ${this.alpha * 0.46})`);
     gradient.addColorStop(1, "rgba(77, 252, 255, 0)");
 
     context.save();
     context.fillStyle = gradient;
     context.shadowBlur = this.glow;
-    context.shadowColor = "rgba(77, 252, 255, 0.85)";
+    context.shadowColor = "rgba(77, 252, 255, 0.72)";
     context.beginPath();
-    context.arc(this.x, this.y, this.radius * 2.4, 0, Math.PI * 2);
+    context.arc(this.x, this.y, this.radius * 2.2, 0, Math.PI * 2);
     context.fill();
     context.restore();
   }
@@ -287,13 +283,13 @@ class OrbitDrop {
 
   reset() {
     this.angle = Math.random() * Math.PI * 2;
-    this.speed = 0.002 + Math.random() * 0.006;
-    this.radiusX = canvasWidth * (0.17 + Math.random() * 0.08);
-    this.radiusY = canvasHeight * (0.1 + Math.random() * 0.05);
-    this.size = 1 + Math.random() * 2.8;
-    this.alpha = 0.22 + Math.random() * 0.6;
+    this.speed = 0.0015 + Math.random() * 0.004;
+    this.radiusX = canvasWidth * (0.16 + Math.random() * 0.07);
+    this.radiusY = canvasHeight * (0.09 + Math.random() * 0.045);
+    this.size = 1 + Math.random() * 2.2;
+    this.alpha = 0.18 + Math.random() * 0.48;
     this.offsetY = -14 + Math.random() * 28;
-    this.purple = Math.random() > 0.84;
+    this.purple = Math.random() > 0.86;
   }
 
   update() {
@@ -309,12 +305,12 @@ class OrbitDrop {
     context.save();
     context.globalAlpha = this.alpha;
     context.fillStyle = this.purple
-      ? "rgba(198, 145, 255, 0.9)"
-      : "rgba(130, 250, 255, 0.94)";
-    context.shadowBlur = 18;
+      ? "rgba(198, 145, 255, 0.88)"
+      : "rgba(130, 250, 255, 0.9)";
+    context.shadowBlur = 14;
     context.shadowColor = this.purple
-      ? "rgba(178, 108, 255, 0.96)"
-      : "rgba(77, 252, 255, 0.96)";
+      ? "rgba(178, 108, 255, 0.82)"
+      : "rgba(77, 252, 255, 0.82)";
     context.beginPath();
     context.arc(x, y, this.size, 0, Math.PI * 2);
     context.fill();
@@ -328,9 +324,9 @@ class Ripple {
     this.y = y;
     this.radius = radius;
     this.alpha = alpha;
-    this.speed = 1.4 + Math.random() * 1.4;
-    this.scaleY = 0.25 + Math.random() * 0.09;
-    this.lineWidth = 1.2 + Math.random() * 0.8;
+    this.speed = 1.2 + Math.random() * 1.2;
+    this.scaleY = 0.24 + Math.random() * 0.09;
+    this.lineWidth = 1 + Math.random() * 0.7;
   }
 
   update() {
@@ -344,8 +340,8 @@ class Ripple {
     context.scale(1, this.scaleY);
     context.strokeStyle = `rgba(77, 252, 255, ${this.alpha})`;
     context.lineWidth = this.lineWidth;
-    context.shadowBlur = 18;
-    context.shadowColor = "rgba(77, 252, 255, 0.95)";
+    context.shadowBlur = 16;
+    context.shadowColor = "rgba(77, 252, 255, 0.9)";
     context.beginPath();
     context.arc(0, 0, this.radius, 0, Math.PI * 2);
     context.stroke();
@@ -359,24 +355,24 @@ class Ripple {
 
 class SplashParticle {
   constructor(x, y, baseAngle, color = "cyan", powerBoost = 1) {
-    const spread = 0.72;
-    const power = (1.2 + Math.random() * 3.4) * powerBoost;
+    const spread = 0.7;
+    const power = (1 + Math.random() * 2.4) * powerBoost;
 
     this.x = x;
     this.y = y;
     this.vx = Math.cos(baseAngle + (Math.random() - 0.5) * spread) * power;
     this.vy = Math.sin(baseAngle + (Math.random() - 0.5) * spread) * power;
-    this.life = 42 + Math.random() * 32;
+    this.life = 36 + Math.random() * 24;
     this.age = 0;
-    this.size = 1 + Math.random() * 2.7;
-    this.alpha = 0.44 + Math.random() * 0.52;
+    this.size = 1 + Math.random() * 2.1;
+    this.alpha = 0.34 + Math.random() * 0.42;
     this.color = color;
   }
 
   update() {
     this.x += this.vx;
     this.y += this.vy;
-    this.vy += 0.046;
+    this.vy += 0.045;
     this.age += 1;
     this.alpha *= 0.984;
   }
@@ -387,12 +383,12 @@ class SplashParticle {
     context.save();
     context.globalAlpha = this.alpha;
     context.fillStyle = purple
-      ? "rgba(195, 140, 255, 0.92)"
-      : "rgba(130, 250, 255, 0.92)";
-    context.shadowBlur = 16;
+      ? "rgba(195, 140, 255, 0.9)"
+      : "rgba(130, 250, 255, 0.9)";
+    context.shadowBlur = 12;
     context.shadowColor = purple
-      ? "rgba(178, 108, 255, 0.98)"
-      : "rgba(77, 252, 255, 0.98)";
+      ? "rgba(178, 108, 255, 0.84)"
+      : "rgba(77, 252, 255, 0.84)";
     context.beginPath();
     context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     context.fill();
@@ -418,11 +414,11 @@ class MistParticle {
       ? cy + (Math.random() - 0.5) * canvasHeight * 0.32
       : canvasHeight * 0.75 + Math.random() * 40;
 
-    this.radius = 10 + Math.random() * 30;
-    this.alpha = 0.018 + Math.random() * 0.05;
-    this.vx = -0.18 + Math.random() * 0.36;
-    this.vy = -0.12 - Math.random() * 0.28;
-    this.life = 240 + Math.random() * 200;
+    this.radius = 9 + Math.random() * 24;
+    this.alpha = 0.014 + Math.random() * 0.038;
+    this.vx = -0.14 + Math.random() * 0.28;
+    this.vy = -0.1 - Math.random() * 0.22;
+    this.life = 260 + Math.random() * 180;
     this.age = 0;
   }
 
@@ -459,19 +455,15 @@ class MistParticle {
   }
 }
 
-/* =========================
-   CANVAS SETUP
-========================= */
-
 function resizeCanvas() {
   const rect = mapArea.getBoundingClientRect();
 
-  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  dpr = Math.min(window.devicePixelRatio || 1, 1.6);
   canvasWidth = rect.width;
   canvasHeight = rect.height;
 
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
+  canvas.width = Math.floor(rect.width * dpr);
+  canvas.height = Math.floor(rect.height * dpr);
   canvas.style.width = `${rect.width}px`;
   canvas.style.height = `${rect.height}px`;
 
@@ -485,9 +477,9 @@ function buildWaterScene() {
   splashParticles.length = 0;
   mistParticles.length = 0;
 
-  const bubbleCount = Math.max(72, Math.floor((canvasWidth * canvasHeight) / 16000));
-  const orbitCount = Math.max(68, Math.floor(canvasWidth / 16));
-  const mistCount = Math.max(28, Math.floor(canvasWidth / 34));
+  const bubbleCount = Math.max(42, Math.floor((canvasWidth * canvasHeight) / 26000));
+  const orbitCount = Math.max(34, Math.floor(canvasWidth / 30));
+  const mistCount = Math.max(16, Math.floor(canvasWidth / 60));
 
   for (let i = 0; i < bubbleCount; i += 1) {
     bubbles.push(new BubbleParticle(true));
@@ -510,27 +502,23 @@ function emitFountainSplash() {
   const cx = canvasWidth * 0.5;
   const baseY = canvasHeight * 0.78;
 
-  for (let i = 0; i < 8; i += 1) {
+  for (let i = 0; i < 5; i += 1) {
     splashParticles.push(
       new SplashParticle(
-        cx + (Math.random() - 0.5) * 26,
+        cx + (Math.random() - 0.5) * 24,
         baseY - 14,
         -Math.PI / 2,
-        Math.random() > 0.86 ? "purple" : "cyan",
-        1.05
+        Math.random() > 0.88 ? "purple" : "cyan",
+        0.95
       )
     );
   }
 }
 
-/* =========================
-   CANVAS DRAWING
-========================= */
-
 function drawBackdropGlow(context, time) {
   const cx = canvasWidth * 0.5;
   const cy = canvasHeight * 0.51;
-  const pulse = 0.94 + Math.sin(time * 0.0014) * 0.08;
+  const pulse = 0.92 + Math.sin(time * 0.0012) * 0.07;
 
   const glow = context.createRadialGradient(
     cx,
@@ -538,11 +526,11 @@ function drawBackdropGlow(context, time) {
     0,
     cx,
     cy,
-    Math.min(canvasWidth, canvasHeight) * 0.36
+    Math.min(canvasWidth, canvasHeight) * 0.34
   );
 
-  glow.addColorStop(0, "rgba(77, 252, 255, 0.22)");
-  glow.addColorStop(0.42, "rgba(28, 168, 255, 0.1)");
+  glow.addColorStop(0, "rgba(77, 252, 255, 0.18)");
+  glow.addColorStop(0.45, "rgba(28, 168, 255, 0.08)");
   glow.addColorStop(1, "rgba(28, 168, 255, 0)");
 
   context.save();
@@ -555,69 +543,25 @@ function drawBackdropGlow(context, time) {
 function drawFlowLines(context, time) {
   context.save();
 
-  for (let i = 0; i < 14; i += 1) {
-    const baseY = canvasHeight * (0.71 + i * 0.02);
-    const drift = Math.sin(time * 0.001 + i * 0.7) * 24;
+  for (let i = 0; i < 10; i += 1) {
+    const baseY = canvasHeight * (0.72 + i * 0.022);
 
     context.beginPath();
     context.moveTo(-80, baseY);
 
-    for (let x = 0; x <= canvasWidth + 100; x += 70) {
+    for (let x = 0; x <= canvasWidth + 100; x += 90) {
       const waveY =
         baseY +
-        Math.sin(x * 0.012 + time * 0.002 + i) * 8 +
-        Math.cos(x * 0.004 - time * 0.0015) * 4;
+        Math.sin(x * 0.011 + time * 0.0017 + i) * 7 +
+        Math.cos(x * 0.004 - time * 0.0012) * 3;
 
-      context.quadraticCurveTo(x - 22, waveY + drift * 0.03, x, waveY);
+      context.quadraticCurveTo(x - 28, waveY, x, waveY);
     }
 
-    context.strokeStyle = `rgba(77, 252, 255, ${0.052 + i * 0.008})`;
+    context.strokeStyle = `rgba(77, 252, 255, ${0.04 + i * 0.006})`;
     context.lineWidth = 1;
-    context.shadowBlur = 10;
-    context.shadowColor = "rgba(77, 252, 255, 0.45)";
-    context.stroke();
-  }
-
-  context.restore();
-}
-
-function drawSideWaterArcs(context, time) {
-  const cx = canvasWidth * 0.5;
-  const cy = canvasHeight * 0.48;
-  const w = canvasWidth;
-  const h = canvasHeight;
-
-  context.save();
-  context.lineCap = "round";
-  context.lineJoin = "round";
-
-  for (let i = 0; i < 5; i += 1) {
-    const side = i % 2 === 0 ? -1 : 1;
-    const startX = cx + side * w * (0.21 + i * 0.018);
-    const startY = cy + h * (0.02 + i * 0.012);
-    const endX = cx + side * w * (0.36 + i * 0.012);
-    const endY = cy - h * (0.27 - i * 0.018);
-    const controlX = cx + side * w * (0.34 + i * 0.02);
-    const controlY = cy - h * (0.16 + Math.sin(time * 0.001 + i) * 0.025);
-    const alpha = 0.18 - i * 0.02;
-
-    context.beginPath();
-    context.moveTo(startX, startY);
-    context.quadraticCurveTo(controlX, controlY, endX, endY);
-
-    context.strokeStyle = side > 0
-      ? `rgba(160, 105, 255, ${alpha})`
-      : `rgba(77, 252, 255, ${alpha + 0.04})`;
-
-    context.lineWidth = 6 - i * 0.7;
-    context.shadowBlur = 20;
-    context.shadowColor = side > 0
-      ? "rgba(178, 108, 255, 0.7)"
-      : "rgba(77, 252, 255, 0.72)";
-    context.stroke();
-
-    context.lineWidth = 1.2;
-    context.strokeStyle = `rgba(230, 255, 255, ${alpha + 0.05})`;
+    context.shadowBlur = 8;
+    context.shadowColor = "rgba(77, 252, 255, 0.35)";
     context.stroke();
   }
 
@@ -627,66 +571,29 @@ function drawSideWaterArcs(context, time) {
 function drawGlobeMist(context, time) {
   const cx = canvasWidth * 0.5;
   const cy = canvasHeight * 0.5;
-  const radius = Math.min(canvasWidth, canvasHeight) * 0.245;
+  const radius = Math.min(canvasWidth, canvasHeight) * 0.23;
 
   context.save();
 
-  for (let i = 0; i < 4; i += 1) {
-    const r = radius + i * 12 + Math.sin(time * 0.0015 + i) * 6;
+  for (let i = 0; i < 3; i += 1) {
+    const r = radius + i * 14 + Math.sin(time * 0.0014 + i) * 5;
 
     context.beginPath();
     context.ellipse(
       cx,
-      cy + Math.sin(time * 0.001 + i) * 8,
-      r * 1.12,
-      r * 0.72,
-      Math.sin(time * 0.0007 + i) * 0.2,
+      cy + Math.sin(time * 0.001 + i) * 7,
+      r * 1.08,
+      r * 0.68,
+      Math.sin(time * 0.0007 + i) * 0.18,
       0,
       Math.PI * 2
     );
 
-    context.strokeStyle = `rgba(77, 252, 255, ${0.11 - i * 0.018})`;
+    context.strokeStyle = `rgba(77, 252, 255, ${0.08 - i * 0.014})`;
     context.lineWidth = 2;
-    context.shadowBlur = 22;
-    context.shadowColor = "rgba(77, 252, 255, 0.7)";
+    context.shadowBlur = 16;
+    context.shadowColor = "rgba(77, 252, 255, 0.52)";
     context.stroke();
-  }
-
-  context.restore();
-}
-
-function drawSplashCrown(context, time) {
-  const cx = canvasWidth * 0.5;
-  const cy = canvasHeight * 0.45;
-  const radius = Math.min(canvasWidth, canvasHeight) * 0.235;
-
-  context.save();
-  context.lineCap = "round";
-
-  for (let i = 0; i < 16; i += 1) {
-    const ratio = i / 15;
-    const angle = Math.PI * (1.08 + ratio * 0.86);
-    const wave = Math.sin(time * 0.002 + i * 0.8) * 12;
-
-    const x1 = cx + Math.cos(angle) * radius * 1.04;
-    const y1 = cy + Math.sin(angle) * radius * 0.7;
-    const x2 = cx + Math.cos(angle) * (radius * 1.13 + wave);
-    const y2 = cy + Math.sin(angle) * (radius * 0.78 + wave * 0.4) - 22;
-
-    context.beginPath();
-    context.moveTo(x1, y1);
-    context.lineTo(x2, y2);
-
-    context.strokeStyle = `rgba(130, 250, 255, ${0.22 + Math.sin(time * 0.002 + i) * 0.05})`;
-    context.lineWidth = 1.4 + Math.sin(time * 0.003 + i) * 0.4;
-    context.shadowBlur = 14;
-    context.shadowColor = "rgba(77, 252, 255, 0.8)";
-    context.stroke();
-
-    context.beginPath();
-    context.arc(x2, y2, 1.2 + (i % 3), 0, Math.PI * 2);
-    context.fillStyle = "rgba(180, 255, 255, 0.6)";
-    context.fill();
   }
 
   context.restore();
@@ -695,28 +602,28 @@ function drawSplashCrown(context, time) {
 function drawFountainBeam(context, time) {
   const cx = canvasWidth * 0.5;
   const baseY = canvasHeight * 0.78;
-  const sway = Math.sin(time * 0.002) * 12;
+  const sway = Math.sin(time * 0.002) * 10;
 
-  const beam = context.createLinearGradient(cx, baseY, cx, baseY - 250);
-  beam.addColorStop(0, "rgba(77, 252, 255, 1)");
-  beam.addColorStop(0.35, "rgba(77, 252, 255, 0.3)");
+  const beam = context.createLinearGradient(cx, baseY, cx, baseY - 230);
+  beam.addColorStop(0, "rgba(77, 252, 255, 0.76)");
+  beam.addColorStop(0.38, "rgba(77, 252, 255, 0.22)");
   beam.addColorStop(1, "rgba(77, 252, 255, 0)");
 
   context.save();
   context.strokeStyle = beam;
-  context.lineWidth = 5;
-  context.shadowBlur = 34;
-  context.shadowColor = "rgba(77, 252, 255, 1)";
+  context.lineWidth = 4;
+  context.shadowBlur = 24;
+  context.shadowColor = "rgba(77, 252, 255, 0.75)";
 
   context.beginPath();
   context.moveTo(cx, baseY);
   context.bezierCurveTo(
-    cx - 26 + sway,
-    baseY - 82,
-    cx + 22 - sway,
-    baseY - 168,
+    cx - 22 + sway,
+    baseY - 78,
+    cx + 20 - sway,
+    baseY - 150,
     cx,
-    baseY - 248
+    baseY - 230
   );
   context.stroke();
   context.restore();
@@ -725,21 +632,21 @@ function drawFountainBeam(context, time) {
 function drawBaseGlow(context, time) {
   const cx = canvasWidth * 0.5;
   const cy = canvasHeight * 0.79;
-  const pulse = 1 + Math.sin(time * 0.003) * 0.08;
+  const pulse = 1 + Math.sin(time * 0.003) * 0.07;
 
   context.save();
   context.translate(cx, cy);
-  context.scale(1.16 * pulse, 0.32 * pulse);
+  context.scale(1.12 * pulse, 0.3 * pulse);
 
-  const gradient = context.createRadialGradient(0, 0, 10, 0, 0, 165);
-  gradient.addColorStop(0, "rgba(255, 255, 255, 0.28)");
-  gradient.addColorStop(0.2, "rgba(77, 252, 255, 0.34)");
-  gradient.addColorStop(0.7, "rgba(28, 168, 255, 0.14)");
+  const gradient = context.createRadialGradient(0, 0, 10, 0, 0, 150);
+  gradient.addColorStop(0, "rgba(255, 255, 255, 0.2)");
+  gradient.addColorStop(0.22, "rgba(77, 252, 255, 0.26)");
+  gradient.addColorStop(0.72, "rgba(28, 168, 255, 0.1)");
   gradient.addColorStop(1, "rgba(28, 168, 255, 0)");
 
   context.fillStyle = gradient;
   context.beginPath();
-  context.arc(0, 0, 165, 0, Math.PI * 2);
+  context.arc(0, 0, 150, 0, Math.PI * 2);
   context.fill();
   context.restore();
 }
@@ -748,10 +655,10 @@ function animateWater(time = 0) {
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   drawBackdropGlow(ctx, time);
-  drawSideWaterArcs(ctx, time);
   drawFlowLines(ctx, time);
   drawBaseGlow(ctx, time);
   drawGlobeMist(ctx, time);
+  drawFountainBeam(ctx, time);
 
   mistParticles.forEach((particle) => {
     particle.update();
@@ -768,27 +675,24 @@ function animateWater(time = 0) {
     drop.draw(ctx);
   });
 
-  drawSplashCrown(ctx, time);
-  drawFountainBeam(ctx, time);
-
-  if (time - lastSplashEmit > 55) {
+  if (time - lastSplashEmit > 80) {
     emitFountainSplash();
     lastSplashEmit = time;
   }
 
-  if (time - lastAutoRipple > 720) {
+  if (time - lastAutoRipple > 950) {
     spawnRipple(
       canvasWidth * 0.5 + (Math.random() - 0.5) * 80,
       canvasHeight * 0.79,
       10,
-      0.5
+      0.38
     );
     lastAutoRipple = time;
   }
 
-  if (pointer.active && time - lastPointerRipple > 58) {
-    spawnRipple(pointer.x, pointer.y, 4, 0.42);
-    spawnRipple(pointer.x, pointer.y, 15, 0.18);
+  if (pointer.active && time - lastPointerRipple > 48) {
+    spawnRipple(pointer.x, pointer.y, 4, 0.48);
+    spawnRipple(pointer.x, pointer.y, 15, 0.2);
     lastPointerRipple = time;
   }
 
@@ -830,7 +734,7 @@ let ringC;
 let ringD;
 
 function createGlowSpriteTexture() {
-  const size = 128;
+  const size = 96;
   const spriteCanvas = document.createElement("canvas");
   spriteCanvas.width = size;
   spriteCanvas.height = size;
@@ -847,7 +751,7 @@ function createGlowSpriteTexture() {
 
   gradient.addColorStop(0, "rgba(255,255,255,1)");
   gradient.addColorStop(0.22, "rgba(125,255,255,0.9)");
-  gradient.addColorStop(0.55, "rgba(77,252,255,0.32)");
+  gradient.addColorStop(0.55, "rgba(77,252,255,0.28)");
   gradient.addColorStop(1, "rgba(77,252,255,0)");
 
   spriteCtx.fillStyle = gradient;
@@ -857,7 +761,7 @@ function createGlowSpriteTexture() {
 }
 
 function createEarthTexture() {
-  const size = 1024;
+  const size = 768;
   const textureCanvas = document.createElement("canvas");
   textureCanvas.width = size;
   textureCanvas.height = size / 2;
@@ -872,17 +776,17 @@ function createEarthTexture() {
   tctx.fillStyle = bg;
   tctx.fillRect(0, 0, size, size / 2);
 
-  tctx.strokeStyle = "rgba(77, 252, 255, 0.24)";
+  tctx.strokeStyle = "rgba(77, 252, 255, 0.22)";
   tctx.lineWidth = 1;
 
-  for (let x = 0; x <= size; x += 48) {
+  for (let x = 0; x <= size; x += 44) {
     tctx.beginPath();
     tctx.moveTo(x, 0);
     tctx.lineTo(x, size / 2);
     tctx.stroke();
   }
 
-  for (let y = 0; y <= size / 2; y += 36) {
+  for (let y = 0; y <= size / 2; y += 34) {
     tctx.beginPath();
     tctx.moveTo(0, y);
     tctx.lineTo(size, y);
@@ -890,42 +794,38 @@ function createEarthTexture() {
   }
 
   const landShapes = [
-    [[180, 150], [230, 120], [290, 138], [322, 176], [286, 210], [230, 218], [188, 198]],
-    [[420, 110], [468, 86], [540, 102], [590, 144], [570, 198], [510, 220], [452, 196], [400, 154]],
-    [[590, 235], [660, 215], [720, 250], [710, 305], [650, 338], [602, 306]],
-    [[740, 122], [802, 104], [876, 132], [914, 185], [884, 238], [808, 246], [756, 210]],
-    [[810, 300], [854, 286], [912, 318], [930, 360], [882, 396], [820, 376]]
+    [[130, 118], [176, 92], [224, 108], [250, 140], [218, 166], [176, 170], [138, 152]],
+    [[315, 86], [352, 66], [408, 78], [445, 110], [430, 154], [388, 172], [344, 152], [302, 116]],
+    [[442, 180], [500, 164], [548, 194], [540, 238], [492, 264], [452, 234]],
+    [[560, 94], [612, 80], [668, 104], [700, 144], [676, 184], [616, 190], [574, 162]]
   ];
 
   landShapes.forEach((points) => {
     tctx.beginPath();
 
     points.forEach(([x, y], index) => {
-      if (index === 0) {
-        tctx.moveTo(x, y);
-      } else {
-        tctx.lineTo(x, y);
-      }
+      if (index === 0) tctx.moveTo(x, y);
+      else tctx.lineTo(x, y);
     });
 
     tctx.closePath();
 
-    tctx.fillStyle = "rgba(77, 252, 255, 0.42)";
-    tctx.shadowBlur = 28;
-    tctx.shadowColor = "rgba(77, 252, 255, 1)";
+    tctx.fillStyle = "rgba(77, 252, 255, 0.38)";
+    tctx.shadowBlur = 22;
+    tctx.shadowColor = "rgba(77, 252, 255, 0.9)";
     tctx.fill();
 
-    tctx.strokeStyle = "rgba(210, 255, 255, 0.78)";
+    tctx.strokeStyle = "rgba(210, 255, 255, 0.7)";
     tctx.lineWidth = 2;
     tctx.stroke();
   });
 
-  for (let i = 0; i < 420; i += 1) {
+  for (let i = 0; i < 260; i += 1) {
     const x = Math.random() * size;
     const y = Math.random() * size / 2;
-    const r = Math.random() * 1.7;
+    const r = Math.random() * 1.4;
 
-    tctx.fillStyle = `rgba(155, 255, 255, ${0.08 + Math.random() * 0.25})`;
+    tctx.fillStyle = `rgba(155, 255, 255, ${0.08 + Math.random() * 0.22})`;
     tctx.beginPath();
     tctx.arc(x, y, r, 0, Math.PI * 2);
     tctx.fill();
@@ -935,7 +835,7 @@ function createEarthTexture() {
 }
 
 function createRing(radius, tube, color, opacity) {
-  const geometry = new THREE.TorusGeometry(radius, tube, 8, 180);
+  const geometry = new THREE.TorusGeometry(radius, tube, 8, 144);
   const material = new THREE.MeshBasicMaterial({
     color,
     transparent: true,
@@ -960,7 +860,7 @@ function initThreeGlobe() {
     alpha: true
   });
 
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
   renderer.setSize(rect.width, rect.height);
   renderer.setClearColor(0x000000, 0);
   globeSceneEl.appendChild(renderer.domElement);
@@ -970,35 +870,35 @@ function initThreeGlobe() {
 
   const earthTexture = createEarthTexture();
 
-  const earthGeometry = new THREE.SphereGeometry(1.68, 128, 128);
+  const earthGeometry = new THREE.SphereGeometry(1.68, 96, 96);
   const earthMaterial = new THREE.MeshBasicMaterial({
     map: earthTexture,
     color: 0x9dfcff,
     transparent: true,
-    opacity: 0.98,
+    opacity: 0.96,
     blending: THREE.AdditiveBlending
   });
 
   earthMesh = new THREE.Mesh(earthGeometry, earthMaterial);
   globeGroup.add(earthMesh);
 
-  const wireGeometry = new THREE.SphereGeometry(1.7, 44, 30);
+  const wireGeometry = new THREE.SphereGeometry(1.7, 34, 24);
   const wireMaterial = new THREE.MeshBasicMaterial({
     color: 0x4dfcff,
     wireframe: true,
     transparent: true,
-    opacity: 0.2,
+    opacity: 0.18,
     blending: THREE.AdditiveBlending
   });
 
   wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
   globeGroup.add(wireMesh);
 
-  const atmosphereGeometry = new THREE.SphereGeometry(1.84, 128, 128);
+  const atmosphereGeometry = new THREE.SphereGeometry(1.84, 96, 96);
   const atmosphereMaterial = new THREE.MeshBasicMaterial({
     color: 0x4dfcff,
     transparent: true,
-    opacity: 0.14,
+    opacity: 0.12,
     blending: THREE.AdditiveBlending,
     side: THREE.BackSide,
     depthWrite: false
@@ -1007,11 +907,11 @@ function initThreeGlobe() {
   atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
   globeGroup.add(atmosphereMesh);
 
-  const liquidGeometry = new THREE.IcosahedronGeometry(1.98, 5);
+  const liquidGeometry = new THREE.IcosahedronGeometry(1.98, 4);
   const liquidMaterial = new THREE.MeshBasicMaterial({
     color: 0x70ffff,
     transparent: true,
-    opacity: 0.09,
+    opacity: 0.075,
     wireframe: true,
     blending: THREE.AdditiveBlending,
     depthWrite: false
@@ -1020,31 +920,31 @@ function initThreeGlobe() {
   liquidShell = new THREE.Mesh(liquidGeometry, liquidMaterial);
   globeGroup.add(liquidShell);
 
-  ringA = createRing(2.12, 0.006, 0x4dfcff, 0.48);
+  ringA = createRing(2.12, 0.006, 0x4dfcff, 0.42);
   ringA.rotation.x = Math.PI * 0.52;
   ringA.rotation.z = Math.PI * 0.05;
   globeGroup.add(ringA);
 
-  ringB = createRing(2.3, 0.005, 0xb26cff, 0.3);
+  ringB = createRing(2.3, 0.005, 0xb26cff, 0.26);
   ringB.rotation.x = Math.PI * 0.48;
   ringB.rotation.z = Math.PI * 0.36;
   globeGroup.add(ringB);
 
-  ringC = createRing(2.02, 0.004, 0x9cfaff, 0.34);
+  ringC = createRing(2.02, 0.004, 0x9cfaff, 0.3);
   ringC.rotation.x = Math.PI * 0.15;
   ringC.rotation.y = Math.PI * 0.62;
   globeGroup.add(ringC);
 
-  ringD = createRing(1.86, 0.004, 0x4dfcff, 0.24);
+  ringD = createRing(1.86, 0.004, 0x4dfcff, 0.2);
   ringD.rotation.x = Math.PI * 0.28;
   ringD.rotation.y = Math.PI * 0.88;
   globeGroup.add(ringD);
 
-  const particleCount = 960;
+  const particleCount = 540;
   const positions = new Float32Array(particleCount * 3);
 
   for (let i = 0; i < particleCount; i += 1) {
-    const radius = 2.02 + Math.random() * 0.68;
+    const radius = 2.02 + Math.random() * 0.64;
     const theta = Math.random() * Math.PI * 2;
     const phi = Math.acos(2 * Math.random() - 1);
 
@@ -1061,21 +961,13 @@ function initThreeGlobe() {
     color: 0x95ffff,
     size: 0.052,
     transparent: true,
-    opacity: 0.9,
+    opacity: 0.82,
     blending: THREE.AdditiveBlending,
     depthWrite: false
   });
 
   particleSystem = new THREE.Points(particleGeometry, particleMaterial);
   globeGroup.add(particleSystem);
-
-  const lightA = new THREE.PointLight(0x4dfcff, 3, 8);
-  lightA.position.set(2, 1.6, 3);
-  scene.add(lightA);
-
-  const lightB = new THREE.PointLight(0xb26cff, 1.8, 8);
-  lightB.position.set(-2.5, -1.2, 2);
-  scene.add(lightB);
 }
 
 function resizeThreeGlobe() {
@@ -1086,7 +978,7 @@ function resizeThreeGlobe() {
   camera.aspect = rect.width / rect.height;
   camera.updateProjectionMatrix();
 
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
   renderer.setSize(rect.width, rect.height);
 }
 
@@ -1095,28 +987,28 @@ function animateThreeGlobe(time = 0) {
 
   const t = time * 0.001;
 
-  earthMesh.rotation.y += 0.0022;
-  earthMesh.rotation.x = Math.sin(t * 0.42) * 0.04;
+  earthMesh.rotation.y += 0.002;
+  earthMesh.rotation.x = Math.sin(t * 0.42) * 0.035;
 
-  wireMesh.rotation.y -= 0.0018;
-  wireMesh.rotation.x = Math.sin(t * 0.35) * 0.08;
+  wireMesh.rotation.y -= 0.0015;
+  wireMesh.rotation.x = Math.sin(t * 0.35) * 0.07;
 
-  atmosphereMesh.rotation.y += 0.0012;
+  atmosphereMesh.rotation.y += 0.001;
 
-  liquidShell.rotation.y -= 0.0027;
-  liquidShell.rotation.x = Math.sin(t * 0.7) * 0.12;
-  liquidShell.scale.setScalar(1 + Math.sin(t * 1.6) * 0.03);
+  liquidShell.rotation.y -= 0.0023;
+  liquidShell.rotation.x = Math.sin(t * 0.7) * 0.1;
+  liquidShell.scale.setScalar(1 + Math.sin(t * 1.6) * 0.025);
 
-  ringA.rotation.z += 0.003;
-  ringB.rotation.z -= 0.0022;
-  ringC.rotation.y += 0.0026;
-  ringD.rotation.y -= 0.0031;
+  ringA.rotation.z += 0.0026;
+  ringB.rotation.z -= 0.0019;
+  ringC.rotation.y += 0.0023;
+  ringD.rotation.y -= 0.0027;
 
-  particleSystem.rotation.y += 0.002;
-  particleSystem.rotation.x = Math.sin(t * 0.5) * 0.08;
+  particleSystem.rotation.y += 0.0017;
+  particleSystem.rotation.x = Math.sin(t * 0.5) * 0.07;
 
-  globeGroup.rotation.y += (pointer.nx * 0.32 - globeGroup.rotation.y) * 0.045;
-  globeGroup.rotation.x += (-pointer.ny * 0.22 - globeGroup.rotation.x) * 0.045;
+  globeGroup.rotation.y += (pointer.nx * 0.28 - globeGroup.rotation.y) * 0.04;
+  globeGroup.rotation.x += (-pointer.ny * 0.2 - globeGroup.rotation.x) * 0.04;
 
   renderer.render(scene, camera);
 
