@@ -7,85 +7,79 @@ const containers = {
   projects: document.getElementById("project-items")
 };
 
-/* HTML表示順に合わせる：problem → tech → work → projects */
-const groupLabels = {
-  problem: "01 / 問題検知・構造化",
-  tech: "02 / 技術実装・制作支援",
-  work: "03 / 業務改善・運用設計",
-  projects: "04 / 制作物・GitHub"
-};
+const detailPop = document.getElementById("detail-pop");
+const detailTitle = document.getElementById("detail-title");
+const detailText = document.getElementById("detail-text");
 
-function createMobileModal() {
-  const modal = document.createElement("div");
-  modal.className = "mobile-modal";
-  modal.setAttribute("aria-hidden", "true");
+function closeCards() {
+  document
+    .querySelectorAll(".skill-card, .project-card")
+    .forEach((card) => card.classList.remove("active"));
 
-  modal.innerHTML = `
-    <div class="mobile-modal-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-modal-title">
-      <button class="mobile-modal-close" type="button" aria-label="閉じる">×</button>
-      <p class="mobile-modal-kicker" id="mobile-modal-kicker"></p>
-      <h3 class="mobile-modal-title" id="mobile-modal-title"></h3>
-      <p class="mobile-modal-score" id="mobile-modal-score"></p>
-      <p class="mobile-modal-text" id="mobile-modal-text"></p>
-    </div>
-  `;
-
-  document.body.appendChild(modal);
-
-  const closeButton = modal.querySelector(".mobile-modal-close");
-
-  function closeModal() {
-    modal.classList.remove("visible");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
-  }
-
-  closeButton.addEventListener("click", closeModal);
-
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
-
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && modal.classList.contains("visible")) {
-      closeModal();
-    }
-  });
-
-  return {
-    element: modal,
-    open(item, groupName) {
-      const kicker = modal.querySelector("#mobile-modal-kicker");
-      const title = modal.querySelector("#mobile-modal-title");
-      const score = modal.querySelector("#mobile-modal-score");
-      const text = modal.querySelector("#mobile-modal-text");
-
-      kicker.textContent = groupLabels[groupName] || "Skill";
-      title.textContent = item.name;
-
-      const scoreText = typeof item.score === "number"
-        ? `Score: ${item.score} / ${item.badge || "Skill"}`
-        : item.badge || "";
-
-      score.textContent = scoreText;
-      text.textContent = item.detail || "詳細情報はありません。";
-
-      modal.classList.add("visible");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.classList.add("modal-open");
-
-      closeButton.focus();
-    }
-  };
+  detailPop.classList.remove("visible");
 }
 
-const mobileModal = createMobileModal();
+function createBadge(text) {
+  if (!text) return null;
+
+  const badge = document.createElement("span");
+  badge.className = "badge";
+  badge.textContent = text;
+  return badge;
+}
+
+function createGithubFlyout(item) {
+  const flyout = document.createElement("div");
+  flyout.className = "github-flyout";
+
+  const title = document.createElement("p");
+  title.className = "github-flyout-title";
+  title.textContent = "PROJECTS";
+
+  const list = document.createElement("ul");
+  list.className = "github-list";
+
+  item.works.forEach((work) => {
+    const li = document.createElement("li");
+    const link = document.createElement("a");
+
+    link.href = work.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    const icon = document.createElement("span");
+    icon.className = "work-icon";
+    icon.textContent = work.icon;
+
+    const name = document.createElement("span");
+    name.textContent = work.name;
+
+    const external = document.createElement("span");
+    external.className = "external";
+    external.textContent = "↗";
+
+    link.appendChild(icon);
+    link.appendChild(name);
+    link.appendChild(external);
+
+    li.appendChild(link);
+    list.appendChild(li);
+  });
+
+  flyout.appendChild(title);
+  flyout.appendChild(list);
+
+  return flyout;
+}
 
 function createCard(item, groupName) {
-  const card = document.createElement("div");
+  const card = document.createElement("button");
+  card.type = "button";
   card.className = groupName === "projects" ? "project-card" : "skill-card";
+
+  if (item.type === "github") {
+    card.classList.add("github-card");
+  }
 
   const icon = document.createElement("span");
   icon.className = "card-icon";
@@ -95,81 +89,59 @@ function createCard(item, groupName) {
   name.className = "card-name";
   name.textContent = item.name;
 
-  const badge = document.createElement("span");
-  badge.className = "badge";
-  badge.textContent = item.badge || String(item.score ?? "");
+  const score = document.createElement("span");
+  score.className = "score";
+  score.textContent = String(item.score);
 
   card.appendChild(icon);
   card.appendChild(name);
-  card.appendChild(badge);
+  card.appendChild(score);
+
+  const badge = createBadge(item.badge);
+  if (badge) card.appendChild(badge);
 
   if (item.type === "github") {
-    card.classList.add("github-card");
-
-    const flyout = document.createElement("div");
-    flyout.className = "github-flyout";
-
-    const title = document.createElement("p");
-    title.className = "github-flyout-title";
-    title.textContent = "GITHUB WORKS";
-
-    const list = document.createElement("ul");
-    list.className = "github-list";
-
-    item.works.forEach((work) => {
-      const li = document.createElement("li");
-      const link = document.createElement("a");
-
-      link.href = work.url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.setAttribute("aria-label", `${work.name} をGitHubで開く`);
-
-      const workIcon = document.createElement("span");
-      workIcon.textContent = work.icon;
-
-      const workName = document.createElement("span");
-      workName.textContent = work.name;
-
-      const external = document.createElement("span");
-      external.className = "external";
-      external.textContent = "↗";
-
-      link.appendChild(workIcon);
-      link.appendChild(workName);
-      link.appendChild(external);
-
-      li.appendChild(link);
-      list.appendChild(li);
-    });
-
-    flyout.appendChild(title);
-    flyout.appendChild(list);
-    card.appendChild(flyout);
-
-    return card;
+    card.appendChild(createGithubFlyout(item));
   }
 
-  card.setAttribute("role", "button");
-  card.setAttribute("tabindex", "0");
-  card.setAttribute("aria-label", `${item.name} の詳細を開く`);
+  card.addEventListener("click", (event) => {
+    event.stopPropagation();
 
-  card.addEventListener("click", () => {
-    mobileModal.open(item, groupName);
-  });
+    const isAlreadyActive = card.classList.contains("active");
 
-  card.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      mobileModal.open(item, groupName);
+    closeCards();
+
+    if (isAlreadyActive) return;
+
+    card.classList.add("active");
+
+    if (item.type === "github") {
+      detailPop.classList.remove("visible");
+      return;
     }
+
+    detailTitle.textContent = `${item.name} / ${item.score}`;
+    detailText.textContent = item.detail;
+    detailPop.classList.add("visible");
   });
 
   return card;
 }
 
-Object.entries(groups).forEach(([groupName, items]) => {
-  items.forEach((item) => {
-    containers[groupName].appendChild(createCard(item, groupName));
+function renderCards() {
+  Object.entries(groups).forEach(([groupName, items]) => {
+    items.forEach((item) => {
+      containers[groupName].appendChild(createCard(item, groupName));
+    });
   });
-});
+}
+
+function initMobile() {
+  renderCards();
+
+  document.addEventListener("click", () => {
+    closeCards();
+  });
+}
+
+initMobile();

@@ -1,9 +1,11 @@
 :root {
   --bg: #020713;
   --cyan: #4dfcff;
+  --cyan-2: #9cfaff;
   --blue: #1ca8ff;
   --purple: #b26cff;
   --text: #eafcff;
+  --muted: #a6dfea;
   --glass-border: rgba(113, 246, 255, 0.58);
   --purple-border: rgba(178, 108, 255, 0.62);
   --shadow-cyan:
@@ -38,17 +40,23 @@ body {
     linear-gradient(180deg, #020713 0%, #03172d 55%, #020713 100%);
 }
 
-button {
+button,
+a {
   font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .stage {
   position: relative;
   width: 100vw;
   height: 100vh;
-  min-width: 1180px;
-  min-height: 720px;
-  padding: 24px 28px;
+  min-width: 960px;
+  min-height: 640px;
+  padding: clamp(14px, 1.8vw, 28px);
   isolation: isolate;
 }
 
@@ -124,6 +132,10 @@ button {
   }
 }
 
+/* =========================
+   OUTER WATER
+========================= */
+
 .water-top,
 .water-bottom {
   position: absolute;
@@ -141,6 +153,7 @@ button {
   height: 180px;
   opacity: 0.84;
   background:
+    radial-gradient(ellipse at 50% 34%, rgba(77, 252, 255, 0.8), transparent 4%),
     repeating-radial-gradient(
       ellipse at 50% 34%,
       rgba(77, 252, 255, 0.26) 0 2px,
@@ -178,6 +191,8 @@ button {
   opacity: 0.92;
   background:
     radial-gradient(ellipse at 48% 50%, rgba(77, 252, 255, 0.42), transparent 20%),
+    radial-gradient(ellipse at 28% 58%, rgba(28, 168, 255, 0.28), transparent 28%),
+    radial-gradient(ellipse at 72% 58%, rgba(178, 108, 255, 0.2), transparent 28%),
     linear-gradient(
       100deg,
       transparent 0%,
@@ -224,11 +239,15 @@ button {
   }
 }
 
+/* =========================
+   LAYOUT
+========================= */
+
 .layout {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 20px;
+  grid-template-columns: minmax(680px, 1fr) clamp(280px, 22vw, 320px);
+  gap: clamp(12px, 1.5vw, 20px);
   height: 100%;
 }
 
@@ -275,6 +294,7 @@ button {
       transparent 3px 18px
     );
   transform: perspective(600px) rotateX(68deg);
+  filter: blur(0.2px);
   opacity: 0.64;
   animation: waterFloor 4s ease-in-out infinite;
 }
@@ -302,15 +322,24 @@ button {
   }
 }
 
+/* =========================
+   CANVAS WATER
+========================= */
+
 #water-canvas {
   position: absolute;
   inset: 0;
-  z-index: 6;
+  z-index: 11;
   width: 100%;
   height: 100%;
   pointer-events: none;
   mix-blend-mode: screen;
+  opacity: 1;
 }
+
+/* =========================
+   TOP MARK
+========================= */
 
 .top-mark {
   position: absolute;
@@ -322,6 +351,8 @@ button {
   display: grid;
   place-items: center;
   transform: translateX(-50%);
+  opacity: 0.95;
+  pointer-events: none;
 }
 
 .top-mark::before {
@@ -343,6 +374,7 @@ button {
   height: 18px;
   border-radius: 50%;
   border: 1px solid rgba(77, 252, 255, 0.36);
+  filter: blur(0.2px);
   animation: rippleSmall 2.8s ease-in-out infinite;
 }
 
@@ -384,6 +416,10 @@ button {
   }
 }
 
+/* =========================
+   CONNECTION LINES
+========================= */
+
 svg.lines {
   position: absolute;
   inset: 0;
@@ -414,15 +450,17 @@ svg.lines {
   }
 }
 
+/* =========================
+   THREE GLOBE
+========================= */
+
 .globe-wrap {
   position: absolute;
   left: 50%;
   top: 51%;
   z-index: 7;
-  width: min(50vw, 690px);
-  height: min(50vw, 690px);
-  min-width: 520px;
-  min-height: 520px;
+  width: clamp(420px, 46vw, 690px);
+  height: clamp(420px, 46vw, 690px);
   transform: translate(-50%, -48%);
   pointer-events: none;
   will-change: transform;
@@ -463,6 +501,7 @@ svg.lines {
   bottom: 4%;
   z-index: 0;
   width: 390px;
+  max-width: 68%;
   height: 118px;
   border-radius: 50%;
   background:
@@ -472,6 +511,9 @@ svg.lines {
       transparent 3px 16px
     ),
     radial-gradient(ellipse at center, rgba(77, 252, 255, 0.56), transparent 70%);
+  filter:
+    blur(0.2px)
+    drop-shadow(0 0 24px rgba(77, 252, 255, 0.58));
   transform: translateX(-50%);
   animation: poolPulse 2.8s ease-in-out infinite;
 }
@@ -507,7 +549,7 @@ svg.lines {
   left: 50%;
   top: 50%;
   z-index: 9;
-  width: 350px;
+  width: clamp(310px, 28vw, 370px);
   min-height: 92px;
   padding: 16px 20px;
   display: grid;
@@ -523,19 +565,34 @@ svg.lines {
     inset 0 0 24px rgba(77, 252, 255, 0.16);
   transform: translate(-50%, -50%);
   color: var(--text);
-  font-size: 25px;
+  font-size: clamp(20px, 1.8vw, 24px);
   font-weight: 800;
   line-height: 1.45;
+  letter-spacing: 0.02em;
   text-shadow: 0 0 14px rgba(77, 252, 255, 0.9);
 }
 
-.core-label span {
-  display: block;
+.core-label .flow-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
 }
+
+.core-label .flow-arrow {
+  color: var(--cyan);
+  opacity: 0.78;
+  font-size: 0.85em;
+}
+
+/* =========================
+   CLUSTERS
+========================= */
 
 .cluster {
   position: absolute;
-  z-index: 12;
+  z-index: 20;
   display: grid;
   gap: 10px;
 }
@@ -543,28 +600,28 @@ svg.lines {
 .cluster.problem {
   left: 0;
   top: 12%;
-  grid-template-columns: 240px 150px;
+  grid-template-columns: 250px 150px;
   align-items: center;
 }
 
 .cluster.tech {
   left: 0;
   bottom: 10%;
-  grid-template-columns: 250px 150px;
+  grid-template-columns: 260px 150px;
   align-items: center;
 }
 
 .cluster.work {
   right: 2%;
   top: 11%;
-  grid-template-columns: 150px 255px;
+  grid-template-columns: 150px 265px;
   align-items: center;
 }
 
 .cluster.projects {
   right: 2%;
   bottom: 12%;
-  grid-template-columns: 150px 260px;
+  grid-template-columns: 150px 270px;
   align-items: center;
 }
 
@@ -619,6 +676,10 @@ svg.lines {
     inset 0 0 26px rgba(178, 108, 255, 0.22);
 }
 
+.hub.purple::before {
+  border-color: rgba(178, 108, 255, 0.22);
+}
+
 @keyframes hubPulse {
   0%,
   100% {
@@ -663,17 +724,17 @@ svg.lines {
 .skill-card,
 .project-card {
   position: relative;
-  min-height: 49px;
+  min-height: 54px;
   display: grid;
   grid-template-columns: 42px 1fr auto;
   gap: 8px;
   align-items: center;
-  padding: 7px 14px 7px 7px;
+  padding: 8px 15px 8px 8px;
   border: 1px solid rgba(77, 252, 255, 0.58);
   border-radius: 999px;
   color: var(--text);
   text-align: left;
-  font-size: 13px;
+  font-size: 14px;
   background:
     linear-gradient(90deg, rgba(5, 45, 65, 0.9), rgba(1, 18, 33, 0.72));
   box-shadow:
@@ -709,8 +770,7 @@ svg.lines {
   width: 48%;
   height: 100%;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
   transform: skewX(-18deg);
   animation: cardSheen 5.8s ease-in-out infinite;
 }
@@ -757,11 +817,26 @@ svg.lines {
     linear-gradient(90deg, rgba(76, 35, 116, 0.98), rgba(19, 15, 49, 0.82));
 }
 
+.skill-card.active,
+.project-card.active {
+  box-shadow:
+    0 0 16px rgba(77, 252, 255, 0.9),
+    0 0 42px rgba(28, 168, 255, 0.36),
+    inset 0 0 20px rgba(77, 252, 255, 0.18);
+}
+
+.project-card.active {
+  box-shadow:
+    0 0 16px rgba(178, 108, 255, 0.9),
+    0 0 42px rgba(178, 108, 255, 0.36),
+    inset 0 0 20px rgba(178, 108, 255, 0.18);
+}
+
 .card-icon {
   position: relative;
   z-index: 2;
-  width: 36px;
-  height: 36px;
+  width: 39px;
+  height: 39px;
   display: grid;
   place-items: center;
   border: 1px solid currentColor;
@@ -771,7 +846,7 @@ svg.lines {
   box-shadow:
     inset 0 0 14px rgba(77, 252, 255, 0.2),
     0 0 12px rgba(77, 252, 255, 0.2);
-  font-size: 18px;
+  font-size: 19px;
 }
 
 .project-card .card-icon {
@@ -790,7 +865,7 @@ svg.lines {
   position: relative;
   z-index: 2;
   color: var(--cyan);
-  font-size: 22px;
+  font-size: 23px;
   font-weight: 900;
   text-shadow: 0 0 12px currentColor;
 }
@@ -800,26 +875,30 @@ svg.lines {
 }
 
 .badge {
-  position: relative;
-  z-index: 2;
-  justify-self: end;
-  padding: 3px 8px;
-  border: 1px solid rgba(130, 250, 255, 0.42);
+  position: absolute;
+  right: 14px;
+  bottom: -9px;
+  z-index: 4;
+  min-width: 42px;
+  padding: 2px 8px;
+  border: 1px solid rgba(234, 255, 255, 0.48);
   border-radius: 999px;
-  color: #dffcff;
-  background: rgba(77, 252, 255, 0.08);
+  color: #eafcff;
+  background: rgba(2, 16, 30, 0.88);
+  box-shadow: 0 0 12px rgba(77, 252, 255, 0.32);
   font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  text-shadow: 0 0 8px rgba(77, 252, 255, 0.62);
+  font-weight: 800;
+  text-align: center;
 }
 
 .project-card .badge {
-  border-color: rgba(178, 108, 255, 0.44);
-  color: #f0e3ff;
-  background: rgba(178, 108, 255, 0.1);
+  border-color: rgba(178, 108, 255, 0.52);
+  box-shadow: 0 0 12px rgba(178, 108, 255, 0.38);
 }
+
+/* =========================
+   GITHUB EXPAND CARD
+========================= */
 
 .github-card {
   position: relative;
@@ -881,6 +960,7 @@ svg.lines {
   border-bottom: 1px solid rgba(178, 108, 255, 0.74);
   background: rgba(30, 13, 58, 0.96);
   transform: rotate(45deg);
+  box-shadow: 0 0 14px rgba(178, 108, 255, 0.32);
 }
 
 .github-flyout-title {
@@ -909,28 +989,27 @@ svg.lines {
   padding: 6px 9px;
   border: 1px solid rgba(178, 108, 255, 0.3);
   border-radius: 999px;
-  color: #f1e7ff;
   background: rgba(7, 17, 38, 0.62);
+  color: #f1e7ff;
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
-  text-decoration: none;
   box-shadow: inset 0 0 10px rgba(178, 108, 255, 0.08);
   transition:
-    transform 0.16s ease,
-    border-color 0.16s ease,
-    background 0.16s ease;
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
 }
 
 .github-list a:hover,
 .github-list a:focus-visible {
   transform: translateX(-3px);
-  border-color: rgba(234, 255, 255, 0.78);
-  background: rgba(35, 18, 70, 0.82);
+  border-color: rgba(234, 255, 255, 0.7);
+  background: rgba(32, 18, 62, 0.82);
   outline: none;
 }
 
-.github-list a span:first-child {
+.github-list .work-icon {
   display: grid;
   place-items: center;
   width: 18px;
@@ -938,18 +1017,23 @@ svg.lines {
   border-radius: 50%;
   color: #d9b8ff;
   background: rgba(178, 108, 255, 0.12);
+  box-shadow: inset 0 0 8px rgba(178, 108, 255, 0.16);
 }
 
 .github-list .external {
-  color: rgba(234, 255, 255, 0.74);
+  opacity: 0.72;
   font-size: 11px;
 }
+
+/* =========================
+   BOTTOM PHILOSOPHY
+========================= */
 
 .philosophy-row {
   position: absolute;
   left: 50%;
   bottom: 26px;
-  z-index: 12;
+  z-index: 20;
   display: flex;
   gap: 20px;
   transform: translateX(-50%);
@@ -986,10 +1070,14 @@ svg.lines {
   font-weight: 600;
 }
 
+/* =========================
+   SIDE PANEL
+========================= */
+
 .side-panel {
   position: relative;
   overflow: hidden;
-  padding: 18px 18px;
+  padding: clamp(16px, 1.6vw, 22px) clamp(14px, 1.4vw, 20px);
   border: 1px solid var(--glass-border);
   border-radius: 22px;
   background:
@@ -1026,8 +1114,8 @@ svg.lines {
 .panel-section {
   position: relative;
   z-index: 2;
-  padding-bottom: 13px;
-  margin-bottom: 13px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
   border-bottom: 1px solid rgba(77, 252, 255, 0.4);
 }
 
@@ -1040,15 +1128,15 @@ svg.lines {
   display: flex;
   gap: 10px;
   align-items: center;
-  margin: 0 0 10px;
+  margin: 0 0 14px;
   color: var(--cyan);
-  font-size: 20px;
+  font-size: clamp(20px, 1.7vw, 24px);
   text-shadow: 0 0 12px rgba(77, 252, 255, 0.88);
 }
 
 .panel-title span {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   display: grid;
   place-items: center;
   border: 1px solid var(--glass-border);
@@ -1060,12 +1148,12 @@ svg.lines {
 
 .side-panel ul {
   display: grid;
-  gap: 7px;
+  gap: 10px;
   padding: 0;
   margin: 0;
   color: var(--text);
-  font-size: 13px;
-  line-height: 1.36;
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.38;
   list-style: none;
 }
 
@@ -1079,20 +1167,20 @@ svg.lines {
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 11px;
+  font-size: 12px;
+  filter: drop-shadow(0 0 8px rgba(77, 252, 255, 0.8));
 }
 
-.side-panel strong {
-  color: #dffcff;
-  font-weight: 900;
-}
+/* =========================
+   DETAIL
+========================= */
 
 .detail-pop {
   position: absolute;
   left: 50%;
   top: 74%;
-  z-index: 16;
-  width: 460px;
+  z-index: 24;
+  width: min(460px, 52%);
   min-height: 92px;
   padding: 14px 18px;
   border: 1px solid rgba(234, 255, 255, 0.48);
@@ -1128,36 +1216,103 @@ svg.lines {
   line-height: 1.5;
 }
 
-@media (max-width: 1280px) {
+/* =========================
+   RESPONSIVE PC
+========================= */
+
+@media (max-width: 1400px), (max-height: 820px) {
   .stage {
-    min-width: 1080px;
+    padding: 16px;
   }
 
   .layout {
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: minmax(660px, 1fr) 300px;
+    gap: 14px;
+  }
+
+  .globe-wrap {
+    width: clamp(410px, 44vw, 590px);
+    height: clamp(410px, 44vw, 590px);
+  }
+
+  .core-label {
+    min-height: 82px;
   }
 
   .cluster.problem {
-    transform: scale(0.9);
+    transform: scale(0.92);
     transform-origin: left top;
   }
 
   .cluster.tech {
-    transform: scale(0.9);
+    transform: scale(0.92);
     transform-origin: left bottom;
   }
 
   .cluster.work {
-    transform: scale(0.9);
+    transform: scale(0.92);
     transform-origin: right top;
   }
 
   .cluster.projects {
-    transform: scale(0.9);
+    transform: scale(0.92);
     transform-origin: right bottom;
   }
 
   .philosophy-row {
-    transform: translateX(-50%) scale(0.9);
+    transform: translateX(-50%) scale(0.88);
+    bottom: 18px;
+  }
+}
+
+@media (max-height: 720px) {
+  .cluster.problem,
+  .cluster.work {
+    top: 8%;
+  }
+
+  .cluster.tech {
+    bottom: 7%;
+  }
+
+  .cluster.projects {
+    bottom: 8%;
+  }
+
+  .skill-card,
+  .project-card {
+    min-height: 49px;
+    font-size: 13px;
+  }
+
+  .github-flyout {
+    width: 285px;
+    padding: 12px;
+  }
+
+  .github-list a {
+    min-height: 27px;
+    font-size: 11.5px;
+  }
+
+  .philosophy-row {
+    display: none;
+  }
+}
+
+@media (max-width: 1180px) {
+  .stage {
+    min-width: 960px;
+  }
+
+  .layout {
+    grid-template-columns: minmax(640px, 1fr) 280px;
+  }
+
+  .cluster.problem,
+  .cluster.tech,
+  .cluster.work,
+  .cluster.projects {
+    transform: scale(0.84);
   }
 }

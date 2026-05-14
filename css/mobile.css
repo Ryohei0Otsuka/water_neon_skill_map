@@ -1,479 +1,179 @@
-:root {
-  --bg: #020713;
-  --cyan: #4dfcff;
-  --purple: #b26cff;
-  --text: #eafcff;
-
-  font-family: Inter, "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  color: var(--text);
-  background:
-    radial-gradient(circle at 50% 0%, rgba(77, 252, 255, 0.16), transparent 32%),
-    radial-gradient(circle at 80% 18%, rgba(178, 108, 255, 0.12), transparent 30%),
-    linear-gradient(180deg, #020713 0%, #03172d 52%, #020713 100%);
-}
-
-body {
-  min-height: 100vh;
-}
-
-body.modal-open {
-  overflow: hidden;
-}
-
-button {
-  font: inherit;
-}
-
-.stage {
-  width: 100%;
-  min-height: 100vh;
-  padding: 14px;
-}
-
-.ambient,
-.water-top,
-.water-bottom,
-.top-mark,
-.lines,
-.globe-wrap,
-.philosophy-row,
-.detail-pop,
-#water-canvas {
-  display: none;
-}
-
-.layout {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.map-area {
-  order: 1;
-  padding: 18px 14px 16px;
-  border: 1px solid rgba(113, 246, 255, 0.38);
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(77, 252, 255, 0.14), transparent 34%),
-    linear-gradient(180deg, rgba(4, 28, 48, 0.74), rgba(2, 10, 24, 0.82));
-  box-shadow:
-    0 0 18px rgba(77, 252, 255, 0.28),
-    inset 0 0 16px rgba(77, 252, 255, 0.06);
-}
-
-/* SP版ではタイトル文を出さない */
-.map-area::before,
-.map-area::after {
-  display: none;
-}
-
-.cluster {
-  position: static;
-  display: block;
-  margin: 0 0 18px;
-}
-
-.cluster:last-of-type {
-  margin-bottom: 0;
-}
-
-.cluster.problem::before,
-.cluster.tech::before,
-.cluster.work::before,
-.cluster.projects::before {
-  display: block;
-  margin: 0 0 9px;
-  color: var(--cyan);
-  font-size: 15px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-shadow: 0 0 10px rgba(77, 252, 255, 0.6);
-}
-
-/* HTMLの上から順：problem → tech → work → projects */
-.cluster.problem::before {
-  content: "01 / 問題検知・構造化";
-}
-
-.cluster.tech::before {
-  content: "02 / 技術実装・制作支援";
-}
-
-.cluster.work::before {
-  content: "03 / 業務改善・運用設計";
-}
-
-.cluster.projects::before {
-  content: "04 / 制作物・GitHub";
-  color: #e7d2ff;
-  text-shadow: 0 0 10px rgba(178, 108, 255, 0.68);
-}
-
-.hub {
-  display: none;
-}
-
-.items {
-  display: grid;
-  gap: 9px;
-}
-
-.skill-card,
-.project-card {
-  width: 100%;
-  min-height: 52px;
-  display: grid;
-  grid-template-columns: 38px 1fr auto;
-  gap: 8px;
-  align-items: center;
-  padding: 8px 11px 8px 8px;
-  border: 1px solid rgba(77, 252, 255, 0.42);
-  border-radius: 18px;
-  color: var(--text);
-  text-align: left;
-  font-size: 13px;
-  line-height: 1.25;
-  background:
-    linear-gradient(90deg, rgba(5, 45, 65, 0.78), rgba(1, 18, 33, 0.74));
-  box-shadow:
-    0 0 10px rgba(77, 252, 255, 0.16),
-    inset 0 0 12px rgba(77, 252, 255, 0.08);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.skill-card:active,
-.project-card:active {
-  transform: scale(0.985);
-  background:
-    linear-gradient(90deg, rgba(9, 64, 86, 0.86), rgba(1, 22, 42, 0.82));
-}
-
-.project-card {
-  border-color: rgba(178, 108, 255, 0.48);
-  background:
-    linear-gradient(90deg, rgba(45, 18, 72, 0.78), rgba(12, 14, 38, 0.74));
-  box-shadow:
-    0 0 10px rgba(178, 108, 255, 0.16),
-    inset 0 0 12px rgba(178, 108, 255, 0.08);
-}
-
-.card-icon {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  color: var(--cyan);
-  background: rgba(77, 252, 255, 0.08);
-  font-size: 16px;
-}
-
-.project-card .card-icon {
-  color: #d9b8ff;
-  background: rgba(178, 108, 255, 0.1);
-}
-
-.card-name {
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.badge {
-  justify-self: end;
-  padding: 3px 7px;
-  border: 1px solid rgba(130, 250, 255, 0.42);
-  border-radius: 999px;
-  color: #dffcff;
-  background: rgba(77, 252, 255, 0.08);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-.project-card .badge {
-  border-color: rgba(178, 108, 255, 0.44);
-  color: #f0e3ff;
-  background: rgba(178, 108, 255, 0.1);
-}
-
-.score {
-  color: var(--cyan);
-  font-size: 18px;
-  font-weight: 900;
-}
-
-/* GitHubカードはSPでは常時展開 */
-.github-card {
-  display: grid;
-  cursor: default;
-}
-
-.github-card:active {
-  transform: none;
-}
-
-.github-flyout {
-  position: static;
-  grid-column: 1 / -1;
-  width: 100%;
-  margin-top: 10px;
-  padding: 12px;
-  border: 1px solid rgba(178, 108, 255, 0.54);
-  border-radius: 16px;
-  background:
-    radial-gradient(circle at 18% 12%, rgba(178, 108, 255, 0.18), transparent 28%),
-    linear-gradient(180deg, rgba(36, 16, 64, 0.86), rgba(5, 13, 32, 0.9));
-}
-
-.github-flyout-title {
-  margin: 0 0 9px;
-  color: #ead8ff;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.06em;
-}
-
-.github-list {
-  display: grid;
-  gap: 7px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.github-list a {
-  display: grid;
-  grid-template-columns: 18px 1fr auto;
-  gap: 8px;
-  align-items: center;
-  min-height: 36px;
-  padding: 8px 10px;
-  border: 1px solid rgba(178, 108, 255, 0.34);
-  border-radius: 999px;
-  color: #f1e7ff;
-  background: rgba(7, 17, 38, 0.7);
-  font-size: 12px;
-  font-weight: 700;
-  white-space: normal;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.github-list a:active {
-  transform: scale(0.98);
-  background: rgba(35, 18, 70, 0.86);
-}
-
-.github-list a span:first-child {
-  display: grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  color: #d9b8ff;
-  background: rgba(178, 108, 255, 0.12);
-}
-
-.github-list .external {
-  color: rgba(234, 255, 255, 0.74);
-  font-size: 11px;
-}
-
-.side-panel {
-  order: 2;
-  width: 100%;
-  padding: 16px 14px;
-  border: 1px solid rgba(113, 246, 255, 0.38);
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(77, 252, 255, 0.12), transparent 30%),
-    linear-gradient(180deg, rgba(6, 35, 55, 0.72), rgba(1, 15, 28, 0.74));
-  box-shadow:
-    0 0 14px rgba(77, 252, 255, 0.2),
-    inset 0 0 14px rgba(77, 252, 255, 0.06);
-}
-
-.panel-section {
-  padding-bottom: 14px;
-  margin-bottom: 14px;
-  border-bottom: 1px solid rgba(77, 252, 255, 0.32);
-}
-
-.panel-section:last-child {
-  margin-bottom: 0;
-  border-bottom: 0;
-}
-
-.panel-title {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin: 0 0 10px;
-  color: var(--cyan);
-  font-size: 19px;
-  text-shadow: 0 0 10px rgba(77, 252, 255, 0.72);
-}
-
-.panel-title span {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(113, 246, 255, 0.48);
-  border-radius: 50%;
-}
-
-.side-panel ul {
-  display: grid;
-  gap: 8px;
-  padding: 0;
-  margin: 0;
-  color: var(--text);
-  font-size: 13px;
-  line-height: 1.5;
-  list-style: none;
-}
-
-.side-panel li {
-  position: relative;
-  padding-left: 18px;
-}
-
-.side-panel li::before {
-  content: "💧";
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 11px;
-}
-
-.side-panel strong {
-  color: #dffcff;
-  font-weight: 900;
-}
-
-/* =========================
-   SP MODAL
-========================= */
-
-.mobile-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: none;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 16px;
-  background: rgba(0, 6, 16, 0.72);
-  backdrop-filter: blur(8px);
-}
-
-.mobile-modal.visible {
-  display: flex;
-}
-
-.mobile-modal-panel {
-  position: relative;
-  width: 100%;
-  max-width: 440px;
-  padding: 18px 16px 16px;
-  border: 1px solid rgba(113, 246, 255, 0.54);
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(77, 252, 255, 0.16), transparent 32%),
-    radial-gradient(circle at 88% 8%, rgba(178, 108, 255, 0.16), transparent 34%),
-    linear-gradient(180deg, rgba(4, 28, 48, 0.98), rgba(2, 10, 24, 0.98));
-  box-shadow:
-    0 0 20px rgba(77, 252, 255, 0.28),
-    0 0 36px rgba(178, 108, 255, 0.14),
-    inset 0 0 16px rgba(77, 252, 255, 0.08);
-  animation: modalUp 0.18s ease-out;
-}
-
-@keyframes modalUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.98);
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow: auto;
   }
 
-  to {
+  body {
+    min-height: 100vh;
+  }
+
+  .stage {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 100vh;
+    padding: 14px;
+  }
+
+  .stage::before {
+    opacity: 0.32;
+  }
+
+  .water-top {
+    height: 120px;
+    opacity: 0.52;
+  }
+
+  .water-bottom {
+    height: 150px;
+    opacity: 0.58;
+  }
+
+  .layout {
+    display: block;
+    height: auto;
+  }
+
+  .map-area {
+    min-height: 860px;
+    overflow: visible;
+    border-radius: 22px;
+    padding: 18px 14px 26px;
+  }
+
+  #water-canvas,
+  .lines,
+  .top-mark,
+  .philosophy-row {
+    display: none;
+  }
+
+  .globe-wrap {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(84vw, 360px);
+    height: min(84vw, 360px);
+    margin: 8px auto 24px;
+    transform: none !important;
+  }
+
+  .globe-wrap::before {
+    inset: 3%;
+  }
+
+  .globe-wrap::after {
+    width: 70%;
+    height: 82px;
+  }
+
+  .core-label {
+    width: min(78vw, 310px);
+    min-height: 74px;
+    padding: 12px 14px;
+    font-size: 18px;
+  }
+
+  .core-label .flow-line {
+    gap: 6px;
+  }
+
+  .cluster {
+    position: relative;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    display: block;
+    transform: none !important;
+    margin: 18px 0;
+  }
+
+  .cluster .hub {
+    width: 100%;
+    height: auto;
+    min-height: 78px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+  }
+
+  .hub .title {
+    font-size: 18px;
+  }
+
+  .hub .icon {
+    font-size: 23px;
+  }
+
+  .hub .num {
+    font-size: 14px;
+  }
+
+  .items {
+    gap: 10px;
+  }
+
+  .skill-card,
+  .project-card {
+    width: 100%;
+    min-height: 58px;
+    grid-template-columns: 42px 1fr auto;
+    font-size: 14px;
+  }
+
+  .badge {
+    right: 12px;
+    bottom: -8px;
+  }
+
+  .github-flyout {
+    position: static;
+    width: 100%;
+    margin-top: 12px;
     opacity: 1;
-    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    transform: none;
+    filter: none;
+    display: none;
   }
-}
 
-.mobile-modal-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0 0 8px;
-  padding: 4px 9px;
-  border: 1px solid rgba(113, 246, 255, 0.4);
-  border-radius: 999px;
-  color: #dffcff;
-  background: rgba(77, 252, 255, 0.08);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-}
+  .github-card.active .github-flyout,
+  .github-card:hover .github-flyout,
+  .github-card:focus-within .github-flyout {
+    display: block;
+  }
 
-.mobile-modal-title {
-  margin: 0 36px 8px 0;
-  color: var(--cyan);
-  font-size: 20px;
-  font-weight: 900;
-  line-height: 1.35;
-  text-shadow: 0 0 10px rgba(77, 252, 255, 0.72);
-}
+  .github-flyout::before {
+    display: none;
+  }
 
-.mobile-modal-score {
-  margin: 0 0 12px;
-  color: #dffcff;
-  font-size: 12px;
-  font-weight: 800;
-  opacity: 0.9;
-}
+  .detail-pop {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    min-height: 0;
+    margin-top: 16px;
+    transform: none;
+    display: none;
+  }
 
-.mobile-modal-text {
-  margin: 0;
-  color: #d8fbff;
-  font-size: 14px;
-  line-height: 1.65;
-}
+  .detail-pop.visible {
+    display: block;
+    transform: none;
+  }
 
-.mobile-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(113, 246, 255, 0.42);
-  border-radius: 50%;
-  color: #eaffff;
-  background: rgba(4, 20, 34, 0.78);
-  font-size: 18px;
-  font-weight: 900;
-  cursor: pointer;
-}
+  .side-panel {
+    margin-top: 18px;
+    border-radius: 20px;
+  }
 
-.mobile-modal-close:active {
-  transform: scale(0.94);
+  .panel-title {
+    font-size: 21px;
+  }
+
+  .side-panel ul {
+    font-size: 13px;
+  }
 }

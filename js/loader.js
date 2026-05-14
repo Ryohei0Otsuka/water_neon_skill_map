@@ -1,16 +1,12 @@
-const isMobile = window.matchMedia("(max-width: 767px)").matches;
+const mobileQuery = window.matchMedia("(max-width: 768px)");
 
-function loadCss(path) {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = path;
-  document.head.appendChild(link);
+async function loadApp() {
+  if (mobileQuery.matches) {
+    await import("./mobile.js");
+    return;
+  }
+
+  await import("./desktop.js");
 }
 
-if (isMobile) {
-  loadCss("./css/mobile.css");
-  import("./mobile.js");
-} else {
-  loadCss("./css/style.css");
-  import("./desktop.js");
-}
+loadApp();

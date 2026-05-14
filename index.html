@@ -5,12 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Water Neon Skill Map 2026</title>
+
   <meta
     name="description"
-    content="Web運用、業務改善、CSV / ETL、個人開発、UI表現を可視化したインタラクティブLPプロトタイプ。"
+    content="HTML / CSS / JavaScript / Canvas / Three.jsで構成した、思考特性・スキル・制作物を可視化するインタラクティブLPプロトタイプ。"
   />
-</head>
 
+  <meta name="theme-color" content="#020713" />
+
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="shortcut icon" href="./assets/favicon.svg" type="image/svg+xml" />
+
+  <meta property="og:title" content="Water Neon Skill Map 2026" />
+  <meta
+    property="og:description"
+    content="思考特性・スキル・制作物を可視化するインタラクティブLPプロトタイプ。"
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./assets/screenshot-pc.png" />
+
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/mobile.css" media="(max-width: 768px)" />
+</head>
 <body>
   <main class="stage">
     <div class="ambient ambient-a"></div>
@@ -19,7 +35,7 @@
     <div class="water-bottom"></div>
 
     <div class="layout">
-      <section class="map-area" aria-label="スキルマップ">
+      <section class="map-area" aria-label="Skill map visualization">
         <canvas id="water-canvas" aria-hidden="true"></canvas>
 
         <div class="top-mark" aria-hidden="true">
@@ -37,31 +53,39 @@
           <div id="globe-scene" aria-hidden="true"></div>
 
           <div class="core-label">
-            <span>検知 → 構造化 →</span>
-            <span>改善 → 共有 → 実装</span>
+            <span class="flow-line">
+              <span>検知</span>
+              <span class="flow-arrow">〉</span>
+              <span>構造化</span>
+            </span>
+            <span class="flow-line">
+              <span>改善</span>
+              <span class="flow-arrow">〉</span>
+              <span>共有</span>
+              <span class="flow-arrow">〉</span>
+              <span>実装</span>
+            </span>
           </div>
         </div>
 
         <div class="cluster problem">
           <div class="items" id="problem-items"></div>
-
           <div class="hub">
             <div>
               <div class="icon">◉</div>
               <span class="num">1</span>
-              <div class="title">問題検知<br />構造化</div>
+              <div class="title">Problem<br />Sensing</div>
             </div>
           </div>
         </div>
 
         <div class="cluster tech">
           <div class="items" id="tech-items"></div>
-
           <div class="hub">
             <div>
               <div class="icon">⚙</div>
               <span class="num">3</span>
-              <div class="title">技術実装<br />制作支援</div>
+              <div class="title">Technical<br />Implementation</div>
             </div>
           </div>
         </div>
@@ -71,10 +95,9 @@
             <div>
               <div class="icon">↗</div>
               <span class="num">2</span>
-              <div class="title">業務改善<br />運用設計</div>
+              <div class="title">Improvement<br />& Work Style</div>
             </div>
           </div>
-
           <div class="items" id="work-items"></div>
         </div>
 
@@ -83,42 +106,41 @@
             <div>
               <div class="icon">★</div>
               <span class="num">4</span>
-              <div class="title">制作物<br />GitHub</div>
+              <div class="title">Projects &<br />Portfolio</div>
             </div>
           </div>
-
           <div class="items" id="project-items"></div>
         </div>
 
         <div class="philosophy-row">
           <div class="mini">
             <div class="mini-icon">💧</div>
-            観察
-            <small>Observe</small>
+            Observe
+            <small>with curiosity</small>
           </div>
 
           <div class="mini">
             <div class="mini-icon">⬡</div>
-            分解
-            <small>Structure</small>
+            Structure
+            <small>with clarity</small>
           </div>
 
           <div class="mini">
             <div class="mini-icon">☷</div>
-            整理
-            <small>Design</small>
+            Adjust
+            <small>with balance</small>
           </div>
 
           <div class="mini">
             <div class="mini-icon">⌁</div>
-            共有
-            <small>Share</small>
+            Share
+            <small>with purpose</small>
           </div>
 
           <div class="mini">
             <div class="mini-icon">👥</div>
-            導入
-            <small>Implement</small>
+            Introduce
+            <small>with impact</small>
           </div>
         </div>
 
@@ -128,19 +150,18 @@
         </aside>
       </section>
 
-      <aside class="side-panel" aria-label="プロフィール概要">
+      <aside class="side-panel" aria-label="Profile summary">
         <section class="panel-section">
           <h2 class="panel-title">
             <span>●</span>
-            Profile
+            About
           </h2>
 
           <ul>
-            <li>未経験からIT領域へ転身</li>
-            <li>Web運用・改修、業務改善、データ処理を経験</li>
-            <li>既存コードの調査から修正まで対応</li>
-            <li>業務データの分割・変換・整形ツールを実装</li>
-            <li>導入検討・運用改善に必要な確認観点を整理</li>
+            <li>思考特性・スキル・制作物を可視化したインタラクティブLP試作</li>
+            <li>業務・データ・UI・運用の接続部を整理するためのスキルマップ</li>
+            <li>技術デモではなく、改善スタイルと制作姿勢の可視化</li>
+            <li>Green / GitHub Pages掲載を想定した公開用プロトタイプ</li>
           </ul>
         </section>
 
@@ -151,38 +172,24 @@
           </h2>
 
           <ul>
-            <li>業務・データ・人の流れにある違和感を拾う</li>
-            <li>問題を分解し、影響範囲と原因を整理する</li>
-            <li>必要な部分だけを仕組み化する</li>
-            <li>業務と技術の橋渡しを重視する</li>
+            <li>違和感を検知し、確認観点として整理する</li>
+            <li>実装前に流れ・責務・運用を分解して考える</li>
+            <li>人が残るべき判断を残し、詰まる部分を仕組みで軽くする</li>
+            <li>必要に応じてキャッチアップし、実用品寄りに試作する</li>
           </ul>
         </section>
 
         <section class="panel-section">
           <h2 class="panel-title">
             <span>♜</span>
-            Skill Scope
-          </h2>
-
-          <ul>
-            <li><strong>自力実務:</strong> WordPress / jQuery / PHP / VBA / ローコード検証</li>
-            <li><strong>制作支援:</strong> Python / Vanilla JS / TypeScript / Electron / Three.js</li>
-            <li><strong>経験:</strong> CSV・ETL、UI調整、業務フロー整理</li>
-            <li><strong>制作:</strong> GitHub上での個人開発・UI試作</li>
-          </ul>
-        </section>
-
-        <section class="panel-section">
-          <h2 class="panel-title">
-            <span>⌘</span>
-            This LP
+            Build Stack
           </h2>
 
           <ul>
             <li>HTML / CSS / JavaScript</li>
-            <li>Canvas API for water animation</li>
-            <li>Three.js for holographic globe</li>
-            <li>Static site prototype / 2026 version</li>
+            <li>Canvas API for water and ripple effects</li>
+            <li>Three.js for holographic globe visuals</li>
+            <li>Static deployment with GitHub Pages</li>
           </ul>
         </section>
       </aside>
