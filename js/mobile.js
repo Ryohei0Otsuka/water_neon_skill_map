@@ -7,16 +7,10 @@ const containers = {
   projects: document.getElementById("project-items")
 };
 
-const detailPop = document.getElementById("detail-pop");
-const detailTitle = document.getElementById("detail-title");
-const detailText = document.getElementById("detail-text");
-
 function closeCards() {
   document
     .querySelectorAll(".skill-card, .project-card")
     .forEach((card) => card.classList.remove("active"));
-
-  detailPop.classList.remove("visible");
 }
 
 function createBadge(text) {
@@ -26,6 +20,13 @@ function createBadge(text) {
   badge.className = "badge";
   badge.textContent = text;
   return badge;
+}
+
+function createMobileDetail(item) {
+  const detail = document.createElement("p");
+  detail.className = "mobile-card-detail";
+  detail.textContent = item.detail || "";
+  return detail;
 }
 
 function createGithubFlyout(item) {
@@ -105,6 +106,8 @@ function createCard(item, groupName) {
   const badge = createBadge(item.badge);
   if (badge) card.appendChild(badge);
 
+  card.appendChild(createMobileDetail(item));
+
   if (item.type === "github") {
     card.appendChild(createGithubFlyout(item));
   }
@@ -113,26 +116,21 @@ function createCard(item, groupName) {
     event.stopPropagation();
 
     const isAlreadyActive = card.classList.contains("active");
+
     closeCards();
 
-    if (isAlreadyActive) return;
-
-    card.classList.add("active");
-
-    if (item.type === "github") {
-      detailPop.classList.remove("visible");
+    if (isAlreadyActive) {
       return;
     }
 
-    detailTitle.textContent = `${item.name} / ${item.score}`;
-    detailText.textContent = item.detail;
-    detailPop.classList.add("visible");
+    card.classList.add("active");
   }
 
   card.addEventListener("click", activateCard);
 
   card.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
       activateCard(event);
     }
   });
@@ -142,6 +140,8 @@ function createCard(item, groupName) {
 
 function renderCards() {
   Object.entries(groups).forEach(([groupName, items]) => {
+    containers[groupName].replaceChildren();
+
     items.forEach((item) => {
       containers[groupName].appendChild(createCard(item, groupName));
     });
