@@ -118,10 +118,15 @@ export const groups = {
       type: "github",
       icon: "◆",
       name: "GitHub Works",
-      score: 76,
+      score: 82,
       badge: "公開",
-      detail: "個人開発・検証制作群。実用性が高いものを上に並べています。",
+      detail: "個人開発・検証制作群。業務改善、進行支援、データ処理、UI試作など、実用性が高いものを上に並べています。",
       works: [
+        {
+          icon: "🧭",
+          name: "stuck-map",
+          url: "https://github.com/Ryohei0Otsuka/stuck-map"
+        },
         {
           icon: "▤",
           name: "taskticket",
