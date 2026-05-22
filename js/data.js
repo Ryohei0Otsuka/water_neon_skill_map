@@ -74,56 +74,35 @@ export const groups = {
       name: "VBA / CSV / ETL",
       score: 78,
       badge: "自力",
-      detail: "VBAによるCSV・ETL処理。文字コード、クォート、改行、データ仕様差異を考慮した業務データ加工。"
+      detail: "業務データの分割・変換・整形。文字コード、クォート、改行、データ仕様差異を考慮した処理。"
     },
     {
       icon: "◎",
-      name: "WordPress / PHP / jQuery",
+      name: "WordPress / PHP",
       score: 68,
       badge: "自力",
-      detail: "WordPress改修、PHP・jQuery調整、CSSによる表示調整。既存コードを読み、Web運用上の崩れや改善点に対応。"
+      detail: "WordPress運用、子テーマ、CSS / jQuery / PHPによる表示調整・既存コード調査・改修。"
     },
     {
       icon: "</>",
-      name: "HTML / CSS / JavaScript",
-      score: 66,
-      badge: "自力",
-      detail: "LPやUI調整で使う基本技術。画面の見え方、余白、配置、簡単なインタラクションを整える。"
+      name: "Vanilla JS / Visual",
+      score: 68,
+      badge: "支援",
+      detail: "ブラウザ表現、Canvas、UI、インタラクション。AI支援を使いながら試作・調整。"
     },
     {
-      icon: "⬢",
-      name: "React / Vite",
-      score: 64,
-      badge: "AI支援",
-      detail: "AI支援を使いながら、個人開発・UIプロトタイプの実装に使用。状態管理やコンポーネント構成を検証中。"
-    },
-    {
-      icon: "☁",
-      name: "Supabase / PostgreSQL / Vercel",
-      score: 58,
-      badge: "検証",
-      detail: "クラウドDB保存、複数端末同期、Vercelデプロイの検証。同期プロトタイプの仕組み理解と試作に使用。"
+      icon: "⬡",
+      name: "Python Tools",
+      score: 62,
+      badge: "支援",
+      detail: "CSV加工やGUIツールなどの個人開発。AI支援を使いながら実用品寄りに試作。"
     },
     {
       icon: "▧",
-      name: "Python / TypeScript / Electron",
+      name: "TypeScript / Electron",
       score: 60,
       badge: "支援",
-      detail: "PythonによるCSV加工やGUIツール、TypeScript / Electronによるデスクトップアプリ試作。AI支援を使いながら制作。"
-    },
-    {
-      icon: "◌",
-      name: "Three.js / Canvas API",
-      score: 56,
-      badge: "試作",
-      detail: "水面・波紋・ホログラム風グローブなど、ブラウザ上のビジュアル表現を試作。LPの演出表現に使用。"
-    },
-    {
-      icon: "☷",
-      name: "ローコード / SaaS比較",
-      score: 62,
-      badge: "検証",
-      detail: "ローコードツールや業務系SaaSの比較・検証補助。業務フロー、導入観点、運用上の確認点を整理。"
+      detail: "Electron / TypeScriptによるデスクトップアプリ試作。表現・支援ツール系の個人開発。"
     },
     {
       icon: "✎",
@@ -191,13 +170,6 @@ export const groups = {
       score: 74,
       badge: "支援",
       detail: "HTML / CSS / JavaScript、Canvas API、Three.jsで構成したインタラクティブLP試作。水面・波紋・ホログラム風グローブなどの視覚表現を検証。"
-    },
-    {
-      icon: "♜",
-      name: "Skill Scope",
-      score: 76,
-      badge: "整理",
-      detail: "自力実装、AI支援での実装・検証、制作支援・試作、経験領域を分けて整理。できることを盛らずに、実務経験と検証範囲を見える化。"
     }
   ]
 };
