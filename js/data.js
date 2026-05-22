@@ -20,13 +20,6 @@ export const groups = {
       score: 84,
       badge: "自力",
       detail: "混ざった問題を分解し、原因・影響範囲・関係性として捉える思考。"
-    },
-    {
-      icon: "🔒",
-      name: "スコープ管理",
-      score: 70,
-      badge: "自力",
-      detail: "気づいたことを全部背負わず、確認・共有・判断の役割を分けるための管理意識。"
     }
   ],
 
@@ -53,13 +46,6 @@ export const groups = {
       detail: "関係者の認識をそろえ、会話を構造化して共通理解へ運ぶ力。"
     },
     {
-      icon: "▰",
-      name: "継続実行",
-      score: 80,
-      badge: "自力",
-      detail: "波があってもゼロにしない継続力。小さく観察・記録・改善を回す。"
-    },
-    {
       icon: "☷",
       name: "運用意識",
       score: 72,
@@ -78,38 +64,24 @@ export const groups = {
     },
     {
       icon: "◎",
-      name: "WordPress / PHP",
+      name: "WordPress / PHP / jQuery",
       score: 68,
       badge: "自力",
-      detail: "WordPress運用、子テーマ、CSS / jQuery / PHPによる表示調整・既存コード調査・改修。"
+      detail: "WordPress運用、CSS / jQuery / PHPによる表示調整、既存コード調査・改修。"
     },
     {
       icon: "</>",
-      name: "Vanilla JS / Visual",
-      score: 68,
+      name: "JavaScript / UI Prototype",
+      score: 66,
       badge: "支援",
-      detail: "ブラウザ表現、Canvas、UI、インタラクション。AI支援を使いながら試作・調整。"
-    },
-    {
-      icon: "⬡",
-      name: "Python Tools",
-      score: 62,
-      badge: "支援",
-      detail: "CSV加工やGUIツールなどの個人開発。AI支援を使いながら実用品寄りに試作。"
+      detail: "HTML / CSS / JavaScriptを使ったUI調整・ブラウザ表現・インタラクション試作。"
     },
     {
       icon: "▧",
-      name: "TypeScript / Electron",
+      name: "Python / TypeScript / Electron",
       score: 60,
       badge: "支援",
-      detail: "Electron / TypeScriptによるデスクトップアプリ試作。表現・支援ツール系の個人開発。"
-    },
-    {
-      icon: "✎",
-      name: "命名・設計",
-      score: 48,
-      badge: "課題",
-      detail: "今後伸ばす領域。命名、責務分割、読みやすい設計、保守しやすい構成。"
+      detail: "CSV加工、GUIツール、Electron / TypeScriptによるデスクトップアプリ試作。AI支援を使いながら制作。"
     }
   ],
 
