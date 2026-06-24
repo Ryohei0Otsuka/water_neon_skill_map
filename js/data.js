@@ -5,7 +5,7 @@ export const groups = {
       name: "問題検知",
       score: 92,
       badge: "自力",
-      detail: "業務・データ・人の流れにある違和感を拾い、問題の火種を早めに見つける力。誰が悪いかではなく、どこが詰まっているかを見る。"
+      detail: "業務・データ・人の流れにある違和感を拾い、問題の火種を早めに見つける力。誰が悪いかではなく、どこで止まっているかを見る。"
     },
     {
       icon: "▣",
@@ -36,14 +36,14 @@ export const groups = {
       name: "業務改善",
       score: 87,
       badge: "自力",
-      detail: "現場の詰まりを見つけ、手順・データ・ツール・確認観点で軽くする業務改善力。作って終わりではなく、使われる形を考える。"
+      detail: "現場の違和感を見つけ、手順・データ・ツール・確認観点で軽くする業務改善力。作って終わりではなく、使われる形を考える。"
     },
     {
       icon: "✦",
       name: "最適設計",
       score: 86,
       badge: "自力",
-      detail: "最強ではなく最適。人が判断すべきところを残し、詰まりやすい部分だけを仕組みで軽くする考え方。"
+      detail: "最強ではなく最適。人が判断すべきところを残し、止まりやすい部分だけを仕組みで軽くする考え方。"
     },
     {
       icon: "👥",
@@ -104,9 +104,9 @@ export const groups = {
       type: "github",
       icon: "◆",
       name: "Public GitHub Works",
-      score: 86,
+      score: 88,
       badge: "公開",
-      detail: "公開リポジトリとして確認できる個人開発のみを掲載。現場で感じた詰まり、確認待ち、ファイル導線、人員体制などを、機密情報を扱わない形で小さなプロトタイプにしています。",
+      detail: "公開リポジトリとして確認できる制作物の一覧。最近の現場由来プロトタイプに加えて、過去の業務改善・データ処理・UI試作・学習制作も含め、積み上げとして並べています。",
       works: [
         {
           icon: "🗺️",
@@ -127,6 +127,66 @@ export const groups = {
           icon: "💧",
           name: "Water Neon Skill Map",
           url: "https://github.com/Ryohei0Otsuka/water_neon_skill_map"
+        },
+        {
+          icon: "▧",
+          name: "CSVjoiner",
+          url: "https://github.com/Ryohei0Otsuka/CSVjoiner"
+        },
+        {
+          icon: "▣",
+          name: "CardHub",
+          url: "https://github.com/Ryohei0Otsuka/CardHub"
+        },
+        {
+          icon: "✚",
+          name: "MedProof",
+          url: "https://github.com/Ryohei0Otsuka/MedProof"
+        },
+        {
+          icon: "◺",
+          name: "Pizzatempo",
+          url: "https://github.com/Ryohei0Otsuka/Pizzatempo"
+        },
+        {
+          icon: "⌁",
+          name: "rhythm-signal",
+          url: "https://github.com/Ryohei0Otsuka/rhythm-signal"
+        },
+        {
+          icon: "🎮",
+          name: "pipotarou-daken-game",
+          url: "https://github.com/Ryohei0Otsuka/pipotarou-daken-game"
+        },
+        {
+          icon: "▤",
+          name: "taskticket",
+          url: "https://github.com/Ryohei0Otsuka/taskticket"
+        },
+        {
+          icon: "💰",
+          name: "CashMaid",
+          url: "https://github.com/Ryohei0Otsuka/CashMaid"
+        },
+        {
+          icon: "🌙",
+          name: "Luna-Wage",
+          url: "https://github.com/Ryohei0Otsuka/Luna-Wage"
+        },
+        {
+          icon: "🪪",
+          name: "CardNest",
+          url: "https://github.com/Ryohei0Otsuka/CardNest"
+        },
+        {
+          icon: "📍",
+          name: "WhiteBoard",
+          url: "https://github.com/Ryohei0Otsuka/WhiteBoard"
+        },
+        {
+          icon: "📌",
+          name: "WhiteBoard2",
+          url: "https://github.com/Ryohei0Otsuka/WhiteBoard2"
         }
       ]
     },
