@@ -26,7 +26,7 @@ export const groups = {
       name: "構造化思考",
       score: 84,
       badge: "自力",
-      detail: "混ざった問題を分解し、原因・前提・影響範囲・関係性として捉える思考。手順書だけでは見えにくい流れを地図にする。"
+      detail: "混ざった問題を分解し、原因・前提・影響範囲・関係性として捉える思考。文章だけでは見えにくい流れを地図にする。"
     }
   ],
 
@@ -103,10 +103,10 @@ export const groups = {
     {
       type: "github",
       icon: "◆",
-      name: "Public GitHub Works",
+      name: "Selected Works",
       score: 88,
-      badge: "公開",
-      detail: "公開リポジトリとして確認できる制作物の一覧。最近の現場由来プロトタイプに加えて、過去の業務改善・データ処理・UI試作・学習制作も含め、積み上げとして並べています。",
+      badge: "選抜",
+      detail: "代表的な制作物を、現場由来の業務地図、進行支援、体制整理、データ処理、UI試作の観点で選抜しています。数を並べるより、何を見て何を作る人かが伝わる構成にしています。",
       works: [
         {
           icon: "🗺️",
@@ -124,11 +124,6 @@ export const groups = {
           url: "https://github.com/Ryohei0Otsuka/stuck-map"
         },
         {
-          icon: "💧",
-          name: "Water Neon Skill Map",
-          url: "https://github.com/Ryohei0Otsuka/water_neon_skill_map"
-        },
-        {
           icon: "▧",
           name: "CSVjoiner",
           url: "https://github.com/Ryohei0Otsuka/CSVjoiner"
@@ -144,49 +139,14 @@ export const groups = {
           url: "https://github.com/Ryohei0Otsuka/MedProof"
         },
         {
-          icon: "◺",
-          name: "Pizzatempo",
-          url: "https://github.com/Ryohei0Otsuka/Pizzatempo"
-        },
-        {
-          icon: "⌁",
-          name: "rhythm-signal",
-          url: "https://github.com/Ryohei0Otsuka/rhythm-signal"
-        },
-        {
-          icon: "🎮",
-          name: "pipotarou-daken-game",
-          url: "https://github.com/Ryohei0Otsuka/pipotarou-daken-game"
-        },
-        {
           icon: "▤",
           name: "taskticket",
           url: "https://github.com/Ryohei0Otsuka/taskticket"
         },
         {
-          icon: "💰",
-          name: "CashMaid",
-          url: "https://github.com/Ryohei0Otsuka/CashMaid"
-        },
-        {
-          icon: "🌙",
-          name: "Luna-Wage",
-          url: "https://github.com/Ryohei0Otsuka/Luna-Wage"
-        },
-        {
-          icon: "🪪",
-          name: "CardNest",
-          url: "https://github.com/Ryohei0Otsuka/CardNest"
-        },
-        {
-          icon: "📍",
-          name: "WhiteBoard",
-          url: "https://github.com/Ryohei0Otsuka/WhiteBoard"
-        },
-        {
-          icon: "📌",
-          name: "WhiteBoard2",
-          url: "https://github.com/Ryohei0Otsuka/WhiteBoard2"
+          icon: "💧",
+          name: "Water Neon Skill Map",
+          url: "https://github.com/Ryohei0Otsuka/water_neon_skill_map"
         }
       ]
     },
