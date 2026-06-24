@@ -103,10 +103,10 @@ export const groups = {
     {
       type: "github",
       icon: "◆",
-      name: "GitHub Works",
+      name: "Public GitHub Works",
       score: 86,
       badge: "公開",
-      detail: "GitHub上で公開している個人開発・検証制作群。現場で感じた詰まり、確認待ち、ファイル導線、人員体制、業務データ処理などを、機密情報を扱わない形で小さなプロトタイプにしています。",
+      detail: "公開リポジトリとして確認できる個人開発のみを掲載。現場で感じた詰まり、確認待ち、ファイル導線、人員体制などを、機密情報を扱わない形で小さなプロトタイプにしています。",
       works: [
         {
           icon: "🗺️",
@@ -127,41 +127,6 @@ export const groups = {
           icon: "💧",
           name: "Water Neon Skill Map",
           url: "https://github.com/Ryohei0Otsuka/water_neon_skill_map"
-        },
-        {
-          icon: "⌁",
-          name: "stuck-map-sync-lab",
-          url: "https://github.com/Ryohei0Otsuka/stuck-map-sync-lab"
-        },
-        {
-          icon: "▤",
-          name: "taskticket",
-          url: "https://github.com/Ryohei0Otsuka/taskticket"
-        },
-        {
-          icon: "▧",
-          name: "CSVjoiner",
-          url: "https://github.com/Ryohei0Otsuka/CSVjoiner"
-        },
-        {
-          icon: "▣",
-          name: "CardHub",
-          url: "https://github.com/Ryohei0Otsuka/CardHub"
-        },
-        {
-          icon: "✚",
-          name: "MedProof",
-          url: "https://github.com/Ryohei0Otsuka/MedProof"
-        },
-        {
-          icon: "◺",
-          name: "Pizzatempo",
-          url: "https://github.com/Ryohei0Otsuka/Pizzatempo"
-        },
-        {
-          icon: "🎮",
-          name: "pipotarou-daken-game",
-          url: "https://github.com/Ryohei0Otsuka/pipotarou-daken-game"
         }
       ]
     },
