@@ -105,7 +105,7 @@ export const groups = {
       icon: "◆",
       name: "Selected Works",
       score: "06",
-      badge: "6作品",
+      badge: "WORKS",
       detail: "導線、体制、進行・認識、対応判断・記録・改善の4本柱に、データ処理と入力・確認導線を補強する2作品を加えています。数ではなく、何を見て何を作る人かが伝わる構成です。",
       works: [
         {
@@ -148,33 +148,16 @@ export const groups = {
     },
     {
       icon: "🗺️",
-      name: "Pathless Map",
-      score: "01",
-      badge: "導線",
-      detail: "実名・実パス・顧客名を使わず、取得元・工程・ツール・分岐・格納先の流れを抽象化して整理する導線マップ。",
-      url: "https://github.com/Ryohei0Otsuka/pathless-map"
-    },
-    {
-      icon: "🛡️",
-      name: "Staff Guard Map",
-      score: "02",
-      badge: "体制",
-      detail: "欠員発生時の必要人数と業務機能維持を分けて捉え、日勤・夜勤・バッファーの考え方を整理する検討用プロトタイプ。",
-      url: "https://github.com/Ryohei0Otsuka/staff-guard-map"
-    },
-    {
-      icon: "🧭",
-      name: "Stuck Map",
       score: "03",
-      badge: "進行",
-      detail: "確認待ち・認識合わせ・レビュー依頼などを状態として可視化し、誰が遅いかではなく、どの流れを整えるかを見る進行支援ボード。",
-      url: "https://github.com/Ryohei0Otsuka/stuck-map"
+      name: "Workflow Maps",
+      badge: "MAPS",
+      detail: "Pathless Map（導線）、Staff Guard Map（体制）、Stuck Map（進行・認識）を、現場で見えにくい流れを整理する3つの業務地図としてまとめたシリーズ。"
     },
     {
       icon: "🍽️",
       name: "TROUBLE DINER",
-      score: "04",
-      badge: "対応",
+      score: "01",
+      badge: "PoC",
       detail: "受付・状況確認・判断・一次対応・退避・エスカレーション・記録・集計をつなぎ、対応履歴を改善優先度へ変える運用対応PoC。",
       url: "https://github.com/Ryohei0Otsuka/trouble-diner"
     }

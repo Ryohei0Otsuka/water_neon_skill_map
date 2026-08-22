@@ -178,7 +178,9 @@ function createCard(item, groupName) {
       return;
     }
 
-    detailTitle.textContent = `${item.name} / ${item.score}`;
+    detailTitle.textContent = groupName === "projects"
+      ? item.name
+      : `${item.name} / ${item.score}`;
     detailText.textContent = item.detail;
 
     if (item.url) {
