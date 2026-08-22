@@ -10,7 +10,10 @@ const containers = {
 function closeCards() {
   document
     .querySelectorAll(".skill-card, .project-card")
-    .forEach((card) => card.classList.remove("active"));
+    .forEach((card) => {
+      card.classList.remove("active");
+      card.setAttribute("aria-expanded", "false");
+    });
 }
 
 function createBadge(text) {
@@ -35,7 +38,7 @@ function createGithubFlyout(item) {
 
   const title = document.createElement("p");
   title.className = "github-flyout-title";
-  title.textContent = "PROJECTS";
+  title.textContent = "SELECTED WORKS";
 
   const list = document.createElement("ul");
   list.className = "github-list";
@@ -56,15 +59,26 @@ function createGithubFlyout(item) {
     icon.className = "work-icon";
     icon.textContent = work.icon;
 
+    const summary = document.createElement("span");
+    summary.className = "work-summary";
+
     const name = document.createElement("span");
+    name.className = "work-name";
     name.textContent = work.name;
+
+    const role = document.createElement("small");
+    role.className = "work-role";
+    role.textContent = work.role;
+
+    summary.appendChild(name);
+    summary.appendChild(role);
 
     const external = document.createElement("span");
     external.className = "external";
     external.textContent = "↗";
 
     link.appendChild(icon);
-    link.appendChild(name);
+    link.appendChild(summary);
     link.appendChild(external);
 
     li.appendChild(link);
@@ -82,6 +96,7 @@ function createCard(item, groupName) {
   card.className = groupName === "projects" ? "project-card" : "skill-card";
   card.setAttribute("role", "button");
   card.setAttribute("tabindex", "0");
+  card.setAttribute("aria-expanded", "false");
 
   if (item.type === "github") {
     card.classList.add("github-card");
@@ -122,6 +137,7 @@ function createCard(item, groupName) {
     if (isAlreadyActive) return;
 
     card.classList.add("active");
+    card.setAttribute("aria-expanded", "true");
   }
 
   card.addEventListener("click", activateCard);

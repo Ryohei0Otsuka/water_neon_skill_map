@@ -271,8 +271,12 @@
   }
 
   .github-list a {
-    min-height: 34px;
+    min-height: 44px;
     font-size: 12px;
+  }
+
+  .work-role {
+    font-size: 10.5px;
   }
 
   .detail-pop {

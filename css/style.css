@@ -480,6 +480,44 @@ svg.lines {
   height: 100% !important;
 }
 
+.globe-wrap.is-fallback #globe-scene {
+  inset: 9%;
+  border: 1px solid rgba(77, 252, 255, 0.42);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(234, 255, 255, 0.9) 0 2%, transparent 8%),
+    repeating-radial-gradient(
+      circle at center,
+      transparent 0 28px,
+      rgba(156, 250, 255, 0.12) 29px 30px,
+      transparent 31px 48px
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(77, 252, 255, 0.62),
+      rgba(28, 168, 255, 0.22) 46%,
+      rgba(2, 16, 32, 0.08) 67%,
+      transparent 70%
+    );
+  box-shadow:
+    0 0 34px rgba(77, 252, 255, 0.56),
+    inset 0 0 42px rgba(156, 250, 255, 0.26);
+  animation: fallbackGlobePulse 4.2s ease-in-out infinite;
+}
+
+@keyframes fallbackGlobePulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.98);
+  }
+
+  50% {
+    opacity: 0.96;
+    transform: scale(1.02);
+  }
+}
+
 .globe-wrap::before {
   content: "";
   position: absolute;
@@ -941,7 +979,7 @@ svg.lines {
   position: absolute;
   right: 0;
   bottom: calc(100% + 12px);
-  width: 310px;
+  width: 330px;
   padding: 14px;
   border: 1px solid rgba(178, 108, 255, 0.74);
   border-radius: 20px;
@@ -1013,15 +1051,14 @@ svg.lines {
   grid-template-columns: 18px 1fr auto;
   gap: 8px;
   align-items: center;
-  min-height: 30px;
-  padding: 6px 9px;
+  min-height: 42px;
+  padding: 7px 10px;
   border: 1px solid rgba(178, 108, 255, 0.3);
-  border-radius: 999px;
+  border-radius: 15px;
   background: rgba(7, 17, 38, 0.62);
   color: #f1e7ff;
   font-size: 12px;
   font-weight: 700;
-  white-space: nowrap;
   box-shadow: inset 0 0 9px rgba(178, 108, 255, 0.08);
   transition:
     transform 0.18s ease,
@@ -1046,6 +1083,29 @@ svg.lines {
   color: #d9b8ff;
   background: rgba(178, 108, 255, 0.12);
   box-shadow: inset 0 0 8px rgba(178, 108, 255, 0.14);
+}
+
+.work-summary {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.work-name {
+  overflow: hidden;
+  color: #f1e7ff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.work-role {
+  overflow: hidden;
+  color: #bda9d8;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .github-list .external {
@@ -1368,12 +1428,12 @@ svg.lines {
   }
 
   .github-flyout {
-    width: 285px;
+    width: 300px;
     padding: 12px;
   }
 
   .github-list a {
-    min-height: 27px;
+    min-height: 38px;
     font-size: 11.5px;
   }
 

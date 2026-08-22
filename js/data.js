@@ -5,7 +5,7 @@ export const groups = {
       name: "問題検知",
       score: 92,
       badge: "自力",
-      detail: "業務・データ・人の流れにある違和感を拾い、問題の火種を早めに見つける力。誰が悪いかではなく、どこで止まっているかを見る。"
+      detail: "業務・データ・人の流れにある違和感を拾い、見えにくい箇所を早めに捉える力。誰が悪いかではなく、どの流れ・前提・受け渡しを確認すべきかを見る。"
     },
     {
       icon: "▣",
@@ -36,7 +36,7 @@ export const groups = {
       name: "業務改善",
       score: 87,
       badge: "自力",
-      detail: "現場の違和感を見つけ、手順・データ・ツール・確認観点で軽くする業務改善力。作って終わりではなく、使われる形を考える。"
+      detail: "現場の違和感を見つけ、手順・データ・ツール・確認観点で軽くする業務改善力。小さなPoCを会話の材料にし、使われる形を考える。"
     },
     {
       icon: "✦",
@@ -92,10 +92,10 @@ export const groups = {
     },
     {
       icon: "⌁",
-      name: "Supabase / Vercel",
-      score: 58,
+      name: "Database / Deployment",
+      score: 60,
       badge: "検証",
-      detail: "Supabase、PostgreSQL、Realtime、Vercelを使った同期・公開検証。ローカル保存版から共有版への拡張を試している。"
+      detail: "Supabase / PostgreSQL、MySQL / MariaDBを使ったデータ連携と、Vercel / GitHub Pagesでの公開検証。ローカル版と共有版の違いも含めて試している。"
     }
   ],
 
@@ -106,47 +106,43 @@ export const groups = {
       name: "Selected Works",
       score: 88,
       badge: "選抜",
-      detail: "代表的な制作物を、現場由来の業務地図、進行支援、体制整理、データ処理、UI試作の観点で選抜しています。数を並べるより、何を見て何を作る人かが伝わる構成にしています。",
+      detail: "導線、体制、進行・認識、対応判断・記録・改善の4本柱に、データ処理と入力・確認導線を補強する2作品を加えています。数ではなく、何を見て何を作る人かが伝わる構成です。",
       works: [
         {
           icon: "🗺️",
           name: "Pathless Map",
+          role: "導線整理",
           url: "https://github.com/Ryohei0Otsuka/pathless-map"
         },
         {
           icon: "🛡️",
           name: "Staff Guard Map",
+          role: "体制整理",
           url: "https://github.com/Ryohei0Otsuka/staff-guard-map"
         },
         {
           icon: "🧭",
           name: "Stuck Map",
+          role: "進行・認識整理",
           url: "https://github.com/Ryohei0Otsuka/stuck-map"
+        },
+        {
+          icon: "🍽️",
+          name: "TROUBLE DINER",
+          role: "対応判断・記録・改善",
+          url: "https://github.com/Ryohei0Otsuka/trouble-diner"
         },
         {
           icon: "▧",
           name: "CSVjoiner",
+          role: "CSV統合・集計",
           url: "https://github.com/Ryohei0Otsuka/CSVjoiner"
         },
         {
           icon: "▣",
           name: "CardHub",
+          role: "入力・確認導線",
           url: "https://github.com/Ryohei0Otsuka/CardHub"
-        },
-        {
-          icon: "✚",
-          name: "MedProof",
-          url: "https://github.com/Ryohei0Otsuka/MedProof"
-        },
-        {
-          icon: "▤",
-          name: "taskticket",
-          url: "https://github.com/Ryohei0Otsuka/taskticket"
-        },
-        {
-          icon: "💧",
-          name: "Water Neon Skill Map",
-          url: "https://github.com/Ryohei0Otsuka/water_neon_skill_map"
         }
       ]
     },
