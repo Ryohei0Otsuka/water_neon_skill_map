@@ -26,9 +26,28 @@ function createBadge(text) {
 }
 
 function createMobileDetail(item) {
-  const detail = document.createElement("p");
+  const detail = document.createElement("div");
   detail.className = "mobile-card-detail";
-  detail.textContent = item.detail || "";
+
+  const text = document.createElement("p");
+  text.textContent = item.detail || "";
+  detail.appendChild(text);
+
+  if (item.url) {
+    const link = document.createElement("a");
+    link.className = "mobile-detail-link";
+    link.href = item.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "View repository ↗";
+
+    link.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    detail.appendChild(link);
+  }
+
   return detail;
 }
 

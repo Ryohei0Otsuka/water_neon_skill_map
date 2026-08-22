@@ -248,6 +248,24 @@
     display: block !important;
   }
 
+  .mobile-card-detail p {
+    margin: 0;
+  }
+
+  .mobile-detail-link {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    margin-top: 9px;
+    padding: 5px 9px;
+    border: 1px solid rgba(178, 108, 255, 0.48);
+    border-radius: 999px;
+    color: #ead8ff;
+    background: rgba(50, 24, 78, 0.62);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
   .github-flyout {
     grid-column: 1 / -1;
     position: static !important;

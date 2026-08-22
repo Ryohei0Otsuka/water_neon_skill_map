@@ -104,8 +104,8 @@ export const groups = {
       type: "github",
       icon: "◆",
       name: "Selected Works",
-      score: 88,
-      badge: "選抜",
+      score: "06",
+      badge: "6作品",
       detail: "導線、体制、進行・認識、対応判断・記録・改善の4本柱に、データ処理と入力・確認導線を補強する2作品を加えています。数ではなく、何を見て何を作る人かが伝わる構成です。",
       works: [
         {
@@ -147,18 +147,36 @@ export const groups = {
       ]
     },
     {
-      icon: "✦",
-      name: "LP Prototype",
-      score: 74,
-      badge: "支援",
-      detail: "HTML / CSS / JavaScript、Canvas API、Three.jsで構成したインタラクティブLP試作。水面・波紋・ホログラム風グローブなどの視覚表現を検証。"
+      icon: "🗺️",
+      name: "Pathless Map",
+      score: "01",
+      badge: "導線",
+      detail: "実名・実パス・顧客名を使わず、取得元・工程・ツール・分岐・格納先の流れを抽象化して整理する導線マップ。",
+      url: "https://github.com/Ryohei0Otsuka/pathless-map"
     },
     {
-      icon: "⬡",
-      name: "Concept Portfolio",
-      score: 80,
-      badge: "整理",
-      detail: "スキル一覧ではなく、思考特性・制作物・現場での違和感をひとつの地図として見せるポートフォリオ。技術だけでなく、何を見て何を作る人かを伝える。"
+      icon: "🛡️",
+      name: "Staff Guard Map",
+      score: "02",
+      badge: "体制",
+      detail: "欠員発生時の必要人数と業務機能維持を分けて捉え、日勤・夜勤・バッファーの考え方を整理する検討用プロトタイプ。",
+      url: "https://github.com/Ryohei0Otsuka/staff-guard-map"
+    },
+    {
+      icon: "🧭",
+      name: "Stuck Map",
+      score: "03",
+      badge: "進行",
+      detail: "確認待ち・認識合わせ・レビュー依頼などを状態として可視化し、誰が遅いかではなく、どの流れを整えるかを見る進行支援ボード。",
+      url: "https://github.com/Ryohei0Otsuka/stuck-map"
+    },
+    {
+      icon: "🍽️",
+      name: "TROUBLE DINER",
+      score: "04",
+      badge: "対応",
+      detail: "受付・状況確認・判断・一次対応・退避・エスカレーション・記録・集計をつなぎ、対応履歴を改善優先度へ変える運用対応PoC。",
+      url: "https://github.com/Ryohei0Otsuka/trouble-diner"
     }
   ]
 };

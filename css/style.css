@@ -1307,6 +1307,33 @@ svg.lines {
   line-height: 1.5;
 }
 
+.detail-link {
+  display: none;
+  width: fit-content;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px solid rgba(178, 108, 255, 0.52);
+  border-radius: 999px;
+  color: #ead8ff;
+  background: rgba(50, 24, 78, 0.62);
+  box-shadow: 0 0 10px rgba(178, 108, 255, 0.22);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.detail-link.visible {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.detail-link:hover,
+.detail-link:focus-visible {
+  border-color: rgba(234, 255, 255, 0.82);
+  background: rgba(76, 35, 116, 0.78);
+  outline: none;
+}
+
 /* =========================
    RESPONSIVE PC
 ========================= */

@@ -12,6 +12,7 @@ const containers = {
 const detailPop = document.getElementById("detail-pop");
 const detailTitle = document.getElementById("detail-title");
 const detailText = document.getElementById("detail-text");
+const detailLink = document.getElementById("detail-link");
 
 const mapArea = document.querySelector(".map-area");
 const globeWrap = document.querySelector(".globe-wrap");
@@ -55,6 +56,8 @@ function closeCards() {
     });
 
   detailPop.classList.remove("visible");
+  detailLink.classList.remove("visible");
+  detailLink.removeAttribute("href");
 }
 
 function createBadge(text) {
@@ -177,6 +180,12 @@ function createCard(item, groupName) {
 
     detailTitle.textContent = `${item.name} / ${item.score}`;
     detailText.textContent = item.detail;
+
+    if (item.url) {
+      detailLink.href = item.url;
+      detailLink.classList.add("visible");
+    }
+
     detailPop.classList.add("visible");
   }
 
