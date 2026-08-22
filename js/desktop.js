@@ -139,6 +139,10 @@ function createCard(item, groupName) {
     card.classList.add("github-card");
   }
 
+  if (item.featured) {
+    card.classList.add("featured-card");
+  }
+
   const icon = document.createElement("span");
   icon.className = "card-icon";
   icon.textContent = item.icon;

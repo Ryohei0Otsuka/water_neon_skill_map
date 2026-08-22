@@ -147,17 +147,18 @@ export const groups = {
       ]
     },
     {
-      icon: "🗺️",
+      icon: "⬡",
       score: "03",
       name: "Workflow Maps",
       badge: "MAPS",
       detail: "Pathless Map（導線）、Staff Guard Map（体制）、Stuck Map（進行・認識）を、現場で見えにくい流れを整理する3つの業務地図としてまとめたシリーズ。"
     },
     {
-      icon: "🍽️",
+      icon: "⚠",
       name: "TROUBLE DINER",
-      score: "01",
+      score: "NEW",
       badge: "PoC",
+      featured: true,
       detail: "受付・状況確認・判断・一次対応・退避・エスカレーション・記録・集計をつなぎ、対応履歴を改善優先度へ変える運用対応PoC。",
       url: "https://github.com/Ryohei0Otsuka/trouble-diner"
     }

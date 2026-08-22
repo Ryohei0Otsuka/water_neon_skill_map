@@ -960,6 +960,46 @@ svg.lines {
   box-shadow: 0 0 10px rgba(178, 108, 255, 0.32);
 }
 
+.project-card.featured-card,
+.project-card.featured-card:hover,
+.project-card.featured-card.active {
+  border-color: rgba(255, 154, 117, 0.82);
+  background:
+    radial-gradient(circle at 14% 50%, rgba(255, 177, 118, 0.2), transparent 30%),
+    linear-gradient(90deg, rgba(92, 31, 46, 0.96), rgba(32, 17, 45, 0.82));
+  box-shadow:
+    0 0 12px rgba(255, 154, 117, 0.72),
+    0 0 30px rgba(255, 82, 126, 0.24),
+    inset 0 0 18px rgba(255, 177, 118, 0.12);
+}
+
+.project-card.featured-card:hover,
+.project-card.featured-card.active {
+  transform: translateY(-2px) scale(1.025);
+  border-color: rgba(255, 231, 214, 0.96);
+}
+
+.project-card.featured-card .card-icon {
+  color: #ffc1a6;
+  background: rgba(255, 130, 98, 0.12);
+  box-shadow:
+    inset 0 0 12px rgba(255, 177, 118, 0.18),
+    0 0 12px rgba(255, 114, 102, 0.32);
+}
+
+.project-card.featured-card .score {
+  color: #ffb28f;
+  font-size: 19px;
+  letter-spacing: 0.04em;
+}
+
+.project-card.featured-card .badge {
+  border-color: rgba(255, 177, 118, 0.7);
+  color: #ffe6da;
+  background: rgba(70, 25, 42, 0.94);
+  box-shadow: 0 0 12px rgba(255, 114, 102, 0.4);
+}
+
 /* =========================
    GITHUB EXPAND
 ========================= */
